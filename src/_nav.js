@@ -41,7 +41,7 @@ const _nav = [
     component: CNavGroup,
     name: 'Trainer',
     to: '/buttons',
-    icon: <CIcon icon={cilCursor} customClassName="nav-icon" />,
+    icon: "",
     items: [
       {
         component: CNavItem,
