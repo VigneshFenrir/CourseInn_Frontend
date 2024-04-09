@@ -41,7 +41,7 @@ const _nav = [
     component: CNavGroup,
     name: 'Trainer',
     to: '/buttons',
-    icon: "",
+    icon: '',
     items: [
       {
         component: CNavItem,
