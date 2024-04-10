@@ -5,6 +5,7 @@ const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
 // Base
 const Accordion = React.lazy(() => import('./views/base/accordion/Accordion'))
 const Breadcrumbs = React.lazy(() => import('./views/base/breadcrumbs/Breadcrumbs'))
+const Updatecourse = React.lazy(() => import('./views/base/breadcrumbs/Updatecourse'))
 
 // Buttons
 const Buttons = React.lazy(() => import('./views/buttons/buttons/Buttons'))
@@ -23,8 +24,9 @@ const Brands = React.lazy(() => import('./views/icons/brands/Brands'))
 const routes = [
   { path: '/', exact: true, name: 'Home' },
   { path: '/dashboard', name: 'Dashboard', element: Dashboard },
-  { path: '/base/accordion', name: 'Accordion', element: Accordion },
-  { path: '/base/breadcrumbs', name: 'Breadcrumbs', element: Breadcrumbs },
+  { path: '/course/add', name: 'Add user', element: Accordion },
+  { path: '/base/breadcrumbs', name: 'View User', element: Breadcrumbs },
+  { path: '/course/update-course/:id', name: 'Updatecourse', element: Updatecourse },
   { path: '/buttons/buttons', name: 'Buttons', element: Buttons },
   { path: '/buttons/button-groups', name: 'Button Groups', element: ButtonGroups },
   { path: '/forms/form-control', name: 'Form Control', element: FormControl },
