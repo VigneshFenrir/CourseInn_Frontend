@@ -3,9 +3,9 @@ import React from 'react'
 const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
 
 // Base
-const Accordion = React.lazy(() => import('./views/base/accordion/Accordion'))
-const Breadcrumbs = React.lazy(() => import('./views/base/breadcrumbs/Breadcrumbs'))
-const Updatecourse = React.lazy(() => import('./views/base/breadcrumbs/Updatecourse'))
+const Addcourse = React.lazy(() => import('./views/base/addcourse/Addcourse'))
+const Viewcourse = React.lazy(() => import('./views/base/viewcourse/Viewcourse'))
+const Updatecourse = React.lazy(() => import('./views/base/viewcourse/Updatecourse'))
 
 // Buttons
 const Buttons = React.lazy(() => import('./views/buttons/buttons/Buttons'))
@@ -24,9 +24,9 @@ const Brands = React.lazy(() => import('./views/icons/brands/Brands'))
 const routes = [
   { path: '/', exact: true, name: 'Home' },
   { path: '/dashboard', name: 'Dashboard', element: Dashboard },
-  { path: '/course/add', name: 'Add user', element: Accordion },
-  { path: '/base/breadcrumbs', name: 'View User', element: Breadcrumbs },
-  { path: '/course/update-course/:id', name: 'Updatecourse', element: Updatecourse },
+  { path: '/course/add', name: 'Add Course', element: Addcourse },
+  { path: '/course/view', name: 'View Courses', element: Viewcourse },
+  { path: '/course/update/:id', name: 'Update Course', element: Updatecourse },
   { path: '/buttons/buttons', name: 'Buttons', element: Buttons },
   { path: '/buttons/button-groups', name: 'Button Groups', element: ButtonGroups },
   { path: '/forms/form-control', name: 'Form Control', element: FormControl },

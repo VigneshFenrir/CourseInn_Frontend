@@ -2,11 +2,12 @@ import axios from 'axios'
 import React from 'react'
 import { useState } from 'react'
 
-const Accordion = () => {
+const Addcourse = () => {
   // const courseName = useRef < HTMLInputElement > null
   // const courseDur = useRef < HTMLInputElement > null
   const [coursename, setCoursename] = useState('')
   const [duration, setduration] = useState('')
+  const [error, setError] = useState()
 
   const savepost = (e) => {
     const User = {
@@ -30,6 +31,8 @@ const Accordion = () => {
         console.log(result)
       } catch (err) {
         console.log(err)
+        console.log('error:', err.message)
+        setError(err.message)
       }
     }
     enroll()
@@ -37,7 +40,7 @@ const Accordion = () => {
   return (
     <>
       <div className=" bg-white  border border-secondary rounded-3 ">
-        <h2 className="h2 border-bottom p-3">Add courses</h2>
+        <h2 className="h2 border-bottom p-3">Add Courses</h2>
         <form action="" onSubmit={savepost} className="px-3 py-4">
           <div className="mb-3 me-3 row justify-content-md-center mx-2">
             <div>
@@ -45,6 +48,7 @@ const Accordion = () => {
                 Couse Name :
               </label>
             </div>
+            {error && <p className="text-danger">{error}</p>}
             <div className="me-3">
               <input
                 type="text"
@@ -82,4 +86,4 @@ const Accordion = () => {
   )
 }
 
-export default Accordion
+export default Addcourse

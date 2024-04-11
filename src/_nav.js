@@ -21,19 +21,19 @@ const _nav = [
   },
   {
     component: CNavGroup,
-    name: 'Course',
-    to: '/base',
+    name: 'Courses',
+    to: '/courses',
     icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
     items: [
       {
         component: CNavItem,
-        name: 'Add User',
+        name: 'Add Course',
         to: '/course/add',
       },
       {
         component: CNavItem,
-        name: 'View User',
-        to: '/base/breadcrumbs',
+        name: 'View Courses',
+        to: '/course/view',
       },
     ],
   },

@@ -13,7 +13,7 @@ const Updatecourse = () => {
   const navigate = useNavigate()
 
   const back = () => {
-    navigate('/base/breadcrumbs')
+    navigate('/course/view')
   }
 
   useEffect(() => {
@@ -36,7 +36,7 @@ const Updatecourse = () => {
     // console.log(user)
 
     update()
-    navigate('/base/breadcrumbs')
+    navigate('/course/view')
   }
   async function update() {
     try {
@@ -50,7 +50,7 @@ const Updatecourse = () => {
     <>
       <div className=" bg-white  border border-secondary rounded-3 ">
         <div className="d-flex justify-content-between border-bottom">
-          <h2 className=" h2   p-2 px-3">View User</h2>
+          <h2 className=" h2   p-2 px-3">Update Course</h2>
           <button className="btn m-3  btn-secondary " onClick={back}>
             Back
           </button>

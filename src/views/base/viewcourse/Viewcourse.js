@@ -5,8 +5,9 @@ import { Link, useNavigate } from 'react-router-dom'
 import { FaTrash } from 'react-icons/fa'
 import { FaMessage } from 'react-icons/fa6'
 
-const Breadcrumbs = () => {
+const Viewcourse = () => {
   const [user, setuser] = useState([])
+
   const navigate = useNavigate()
   // console.log(user)
   useEffect(() => {
@@ -34,7 +35,7 @@ const Breadcrumbs = () => {
     <>
       <div className=" bg-white   rounded-4 ">
         <div className="d-flex justify-content-between border-bottom">
-          <h2 className=" h2   p-2 px-3">View User</h2>
+          <h2 className=" h2   p-2 px-3">Courses</h2>
           <button className="btn m-3  btn-info" on onClick={adduser}>
             Add user
           </button>
@@ -57,10 +58,7 @@ const Breadcrumbs = () => {
                   <td>{user.duration}</td>
 
                   <td>
-                    <Link
-                      to={`/course/update-course/${user._id}`}
-                      className="text-warning d-inline h3 "
-                    >
+                    <Link to={`/course/update/${user._id}`} className="text-warning d-inline h3 ">
                       <FaMessage />
                     </Link>
                     <h3 className="text-danger d-inline ms-3 " onClick={() => handledelete(user)}>
@@ -77,4 +75,4 @@ const Breadcrumbs = () => {
   )
 }
 
-export default Breadcrumbs
+export default Viewcourse
