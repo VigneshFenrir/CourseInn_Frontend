@@ -10,6 +10,7 @@ const Addcourse = () => {
   const [error, setError] = useState()
 
   const savepost = (e) => {
+    e.preventdefault()
     const User = {
       coursename: coursename, // coursename,
       duration: duration, //duration,
@@ -28,11 +29,10 @@ const Addcourse = () => {
     async function enroll() {
       try {
         let result = await axios.post('http://localhost:5000/course/users', User)
-        console.log(result)
+        console.log('result', result)
       } catch (err) {
         console.log(err)
         console.log('error:', err.message)
-        setError(err.message)
       }
     }
     enroll()
