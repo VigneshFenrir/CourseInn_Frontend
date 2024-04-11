@@ -45,7 +45,7 @@ const Addcourse = () => {
           <div className="mb-3 me-3 row justify-content-md-center mx-2">
             <div>
               <label htmlFor="" className=" form-label">
-                Couse Name :
+                Course Name :
               </label>
             </div>
             {error && <p className="text-danger">{error}</p>}
