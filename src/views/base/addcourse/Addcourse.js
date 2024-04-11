@@ -40,11 +40,11 @@ const Addcourse = () => {
   return (
     <>
       <div className=" bg-white  border border-secondary rounded-3 ">
-        <h2 className="h2 border-bottom p-3">Add Courses</h2>
+        <h2 className="h2 border-bottom p-3 text-dark">Add Courses</h2>
         <form action="" onSubmit={savepost} className="px-3 py-4">
           <div className="mb-3 me-3 row justify-content-md-center mx-2">
             <div>
-              <label htmlFor="" className=" form-label">
+              <label htmlFor="" className=" form-label text-dark">
                 Course Name :
               </label>
             </div>
@@ -53,7 +53,7 @@ const Addcourse = () => {
               <input
                 type="text"
                 className="form-control ms-4 "
-                placeholder="Coruse Name"
+                placeholder="course Name"
                 onChange={(e) => {
                   setCoursename(e.target.value)
                 }}
@@ -62,7 +62,7 @@ const Addcourse = () => {
           </div>
 
           <div className="mb-3 me-3 row justify-content-md-center mx-2 ">
-            <label htmlFor="" className=" form-label">
+            <label htmlFor="" className=" form-label text-dark">
               Duration :
             </label>
             <div className="me-3">
@@ -78,7 +78,7 @@ const Addcourse = () => {
           </div>
 
           <div className="text-start ms-5 my-3 px-5">
-            <input type="submit" className="btn btn-primary mt-4 px-2" />
+            <input type="submit" className="btn btn-primary mt-4 px-2 " />
           </div>
         </form>
       </div>

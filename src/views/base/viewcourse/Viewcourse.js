@@ -35,11 +35,7 @@ const Viewcourse = () => {
     <>
       <div className=" bg-light   rounded-4 ">
         <div className="d-flex justify-content-between border-bottom">
-<<<<<<< HEAD:src/views/base/viewcourse/Viewcourse.js
-          <h2 className=" h2   p-2 px-3">Courses</h2>
-=======
-          <h2 className=" h2   p-2 px-3 text-dark">View User</h2>
->>>>>>> 0130a104d323b87c46d3ec9f76aa5bdaeb624f49:src/views/base/breadcrumbs/Breadcrumbs.js
+          <h2 className=" h2 text-dark  p-2 px-3">Courses</h2>
           <button className="btn m-3  btn-info" on onClick={adduser}>
             Add user
           </button>
