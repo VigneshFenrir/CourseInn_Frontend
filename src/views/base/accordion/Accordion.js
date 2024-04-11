@@ -42,7 +42,7 @@ const Accordion = () => {
           <div className="mb-3 me-3 row justify-content-md-center mx-2">
             <div>
               <label htmlFor="" className=" form-label">
-                Couse Name :
+                Course Name :
               </label>
             </div>
             <div className="me-3">
