@@ -3,36 +3,29 @@ import React from 'react'
 import { useState } from 'react'
 
 const Addcourse = () => {
-  // const courseName = useRef < HTMLInputElement > null
-  // const courseDur = useRef < HTMLInputElement > null
   const [coursename, setCoursename] = useState('')
   const [duration, setduration] = useState('')
   const [error, setError] = useState()
+  const [msg, setMsg] = useState()
 
   const savepost = (e) => {
-    e.preventdefault()
+    e.preventDefault()
     const User = {
-      coursename: coursename, // coursename,
-      duration: duration, //duration,
+      coursename: coursename,
+      duration: duration,
     }
     console.log(User)
-
-    // if (courseName.current) {
-    //   User.coursename = courseName.current.value
-    //   //   setCoursename(courseName.current.value);
-    // }
-    // if (courseDur.current) {
-    //   User.duration = courseDur.current.value
-    //   //   setduration(courseDur.current.value);
-    // }
 
     async function enroll() {
       try {
         let result = await axios.post('http://localhost:5000/course/users', User)
-        console.log('result', result)
+        console.log('result:', result)
+
+        setMsg(result.data)
       } catch (err) {
         console.log(err)
-        console.log('error:', err.message)
+        console.log('error:', err.response.data)
+        setError(err.response.data)
       }
     }
     enroll()
@@ -48,7 +41,7 @@ const Addcourse = () => {
                 Course Name :
               </label>
             </div>
-            {error && <p className="text-danger">{error}</p>}
+
             <div className="me-3">
               <input
                 type="text"
@@ -75,6 +68,11 @@ const Addcourse = () => {
                 className="form-control ms-4 "
               />
             </div>
+          </div>
+
+          <div className="text-start ms-5 my-3 px-5">
+            {error && <p className="text-danger">{error}</p>}
+            {msg && <p className="text-success">{msg}</p>}
           </div>
 
           <div className="text-start ms-5 my-3 px-5">
