@@ -7,13 +7,10 @@ import { FaMessage } from 'react-icons/fa6'
 
 const Viewcourse = () => {
   const [user, setuser] = useState([])
-  const [page, setPage] = useState(1)
-  //const [pageCount, setPageCount] = useState(0)
   const [pageLinks, setPagelinks] = useState([])
+  const [currentPage, setCurrentPage] = useState(1)
   const navigate = useNavigate()
-
   const usersPerPage = 8
-
   let pageRange = []
 
   useEffect(() => {
@@ -27,6 +24,8 @@ const Viewcourse = () => {
   async function enroll(page) {
     try {
       console.log(page)
+      setCurrentPage(page)
+      console.log(currentPage)
       let result = await axios.get(`http://localhost:5000/course/users?page=${page}`)
       // console.log(result)
       setuser(result.data)
@@ -40,9 +39,9 @@ const Viewcourse = () => {
       let totalCount = await axios.get('http://localhost:5000/course/users/total')
       const totalitems = totalCount.data
       let pgCount = Math.ceil(totalitems / usersPerPage)
-      // console.log('pagecount', pgCount)
+
       pageRange = [...Array(pgCount).keys()].map((i) => i + 1)
-      // console.log('pageRange', pageRange)
+
       setPagelinks(pageRange)
     } catch (err) {
       console.log(err)
@@ -97,11 +96,11 @@ const Viewcourse = () => {
             </tbody>
           </table>
         </div>
-        <div className="pagination justify-content-center bg-secondary ">
+        <div className="pagination justify-content-center  ">
           {pageLinks.map((pageNumber) => (
             <button
               key={pageNumber}
-              className={`page-button m-1 px-2 text-info bg-dark rounded-2`}
+              className={`page-button m-1 px-2 ${currentPage === pageNumber ? 'bg-dark' : ''} text-info  rounded-2`}
               onClick={() => pageLinkClick(pageNumber)}
             >
               {pageNumber}
