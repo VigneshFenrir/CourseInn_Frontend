@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { useParams } from 'react-router-dom'
+import { SiElsevier } from 'react-icons/si'
 
 const Updatecourse = () => {
   const { id } = useParams()
@@ -9,6 +10,8 @@ const Updatecourse = () => {
     coursename: '',
     duration: '',
   })
+  const [error, setError] = useState()
+  const [msg, setMsg] = useState()
 
   const navigate = useNavigate()
 
@@ -31,26 +34,38 @@ const Updatecourse = () => {
   }
 
   const updatecourse = (e) => {
-    console.log('update')
     e.preventDefault()
+    console.log('update')
+    update()
+
     // console.log(user)
 
-    update()
-    navigate('/course/view')
+    {
+      msg && navigate('/course/view')
+    }
   }
   async function update() {
     try {
       let asser = await axios.put('http://localhost:5000/course/users/' + id, user)
       console.log(asser)
+      setMsg(asser.data)
+      setError()
     } catch (error) {
       console.log(error)
+      console.log('error:', error.response.data)
+      setError(error.response.data)
+      setMsg()
     }
   }
   return (
     <>
+      <div>
+        {msg && <p className="alert alert-success">{msg}</p>}
+        {error && <p className="alert alert-danger">{error}</p>}
+      </div>
       <div className=" bg-white  border border-secondary rounded-3 ">
         <div className="d-flex justify-content-between border-bottom">
-          <h2 className=" h2   p-2 px-3">Update Course</h2>
+          <h2 className=" h2  text-dark p-2 px-3">Update Course</h2>
           <button className="btn m-3  btn-secondary " onClick={back}>
             Back
           </button>
@@ -93,7 +108,9 @@ const Updatecourse = () => {
           </div>
 
           <div className="text-start ms-5 my-3 px-5">
-            <input type="submit" className="btn btn-primary mt-4 px-2" onClick={updatecourse} />
+            <button className="btn btn-primary mt-4 px-2" onClick={updatecourse}>
+              Submit
+            </button>
           </div>
         </form>
       </div>

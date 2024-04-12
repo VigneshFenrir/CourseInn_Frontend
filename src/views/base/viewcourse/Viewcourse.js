@@ -4,9 +4,13 @@ import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { FaTrash } from 'react-icons/fa'
 import { FaMessage } from 'react-icons/fa6'
+import { CButton, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle } from '@coreui/react'
 
 const Viewcourse = () => {
   const [user, setuser] = useState([])
+  const [visible, setVisible] = useState(false)
+  const [currentuser, setCurrentuser] = useState()
+  const [msg, setMsg] = useState()
 
   const navigate = useNavigate()
   // console.log(user)
@@ -24,7 +28,16 @@ const Viewcourse = () => {
   }
 
   const handledelete = (user) => {
-    axios.delete('http://localhost:5000/course/users/' + user._id)
+    setCurrentuser(user)
+    setVisible(!visible)
+  }
+  const deleteitem = async () => {
+    let results = await axios.delete('http://localhost:5000/course/users/' + currentuser._id)
+    console.log(results)
+    console.log('result:', results.data)
+    setMsg(results.data)
+    setVisible(false)
+    enroll()
   }
 
   const adduser = () => {
@@ -33,38 +46,56 @@ const Viewcourse = () => {
 
   return (
     <>
+      <CModal visible={visible} onClose={() => setVisible(false)}>
+        <CModalHeader>
+          <CModalTitle>Confirm Delete</CModalTitle>
+        </CModalHeader>
+        <CModalBody className="h5">Are you sure you want to delete this item ?</CModalBody>
+        <CModalFooter>
+          <CButton color="secondary" onClick={() => setVisible(false)}>
+            Close
+          </CButton>
+          <CButton color="danger" onClick={deleteitem}>
+            Delete
+          </CButton>
+        </CModalFooter>
+      </CModal>
+      {msg && <p className="alert alert-success">{msg}</p>}
       <div className=" bg-white   rounded-4 ">
-        <div className="d-flex justify-content-between border-bottom">
+        <div className="d-flex  justify-content-between border-bottom">
           <h2 className=" h2 text-dark  p-2 px-3">Courses</h2>
-          <h2 className=" h2   p-2 px-3">Courses</h2>
+
           <button className="btn m-3  btn-info" on onClick={adduser}>
-            Add user
+            Add course
           </button>
         </div>
         <div className=" bg-light   ">
           <table className="table ">
             <thead>
               <tr>
-                <th>Id</th>
                 <th>Course Name</th>
                 <th>Duration</th>
+                <th>Date</th>
                 <th>Action</th>
               </tr>
             </thead>
             <tbody>
               {user.map((user) => (
                 <tr key={user._id}>
-                  <td>{user._id}</td>
                   <td>{user.coursename}</td>
                   <td>{user.duration}</td>
+                  <td>{user.date}</td>
 
                   <td>
                     <Link to={`/course/update/${user._id}`} className="text-warning d-inline h3 ">
                       <FaMessage />
                     </Link>
-                    <h3 className="text-danger d-inline ms-3 " onClick={() => handledelete(user)}>
+                    <Link
+                      className="text-danger d-inline ms-3 h3 "
+                      onClick={() => handledelete(user)}
+                    >
                       <FaTrash />
-                    </h3>
+                    </Link>
                   </td>
                 </tr>
               ))}
