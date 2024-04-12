@@ -7,17 +7,43 @@ import { FaMessage } from 'react-icons/fa6'
 
 const Viewcourse = () => {
   const [user, setuser] = useState([])
-
+  const [page, setPage] = useState(1)
+  //const [pageCount, setPageCount] = useState(0)
+  const [pageLinks, setPagelinks] = useState([])
   const navigate = useNavigate()
-  // console.log(user)
+
+  const usersPerPage = 8
+
+  let pageRange = []
+
   useEffect(() => {
-    enroll()
+    enroll(1)
+    pagination()
   }, [])
-  async function enroll() {
+
+  const pageLinkClick = (page) => {
+    enroll(page)
+  }
+  async function enroll(page) {
     try {
-      let result = await axios.get('http://localhost:5000/course/users')
-      console.log(result)
+      console.log(page)
+      let result = await axios.get(`http://localhost:5000/course/users?page=${page}`)
+      // console.log(result)
       setuser(result.data)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  async function pagination() {
+    try {
+      let totalCount = await axios.get('http://localhost:5000/course/users/total')
+      const totalitems = totalCount.data
+      let pgCount = Math.ceil(totalitems / usersPerPage)
+      // console.log('pagecount', pgCount)
+      pageRange = [...Array(pgCount).keys()].map((i) => i + 1)
+      // console.log('pageRange', pageRange)
+      setPagelinks(pageRange)
     } catch (err) {
       console.log(err)
     }
@@ -37,7 +63,7 @@ const Viewcourse = () => {
         <div className="d-flex justify-content-between border-bottom">
           <h2 className=" h2 text-dark  p-2 px-3">Courses</h2>
           <h2 className=" h2   p-2 px-3">Courses</h2>
-          <button className="btn m-3  btn-info" on onClick={adduser}>
+          <button className="btn m-3  btn-info" onClick={adduser}>
             Add user
           </button>
         </div>
@@ -70,6 +96,17 @@ const Viewcourse = () => {
               ))}
             </tbody>
           </table>
+        </div>
+        <div className="pagination justify-content-center bg-secondary ">
+          {pageLinks.map((pageNumber) => (
+            <button
+              key={pageNumber}
+              className={`page-button m-1 px-2 text-info bg-dark rounded-2`}
+              onClick={() => pageLinkClick(pageNumber)}
+            >
+              {pageNumber}
+            </button>
+          ))}
         </div>
       </div>
     </>

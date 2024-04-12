@@ -5,8 +5,8 @@ import { useState } from 'react'
 const Addcourse = () => {
   const [coursename, setCoursename] = useState('')
   const [duration, setduration] = useState('')
-  const [error, setError] = useState()
-  const [msg, setMsg] = useState()
+  const [error, setError] = useState('')
+  const [msg, setMsg] = useState('')
 
   const savepost = (e) => {
     e.preventDefault()
@@ -71,7 +71,7 @@ const Addcourse = () => {
           </div>
 
           <div className="text-start ms-5 my-3 px-5">
-            {error && <p className="text-danger">{error}</p>}
+            {!msg && <p className="text-danger">{error}</p>}
             {msg && <p className="text-success">{msg}</p>}
           </div>
 
