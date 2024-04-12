@@ -19,7 +19,7 @@ const Viewcourse = () => {
   }, [])
   async function enroll() {
     try {
-      let result = await axios.get('http://localhost:5000/course/users')
+      let result = await axios.get('http://localhost:5000/courses')
       console.log(result)
       setuser(result.data)
     } catch (err) {
@@ -32,7 +32,7 @@ const Viewcourse = () => {
     setVisible(!visible)
   }
   const deleteitem = async () => {
-    let results = await axios.delete('http://localhost:5000/course/users/' + currentuser._id)
+    let results = await axios.delete('http://localhost:5000/courses/' + currentuser._id)
     console.log(results)
     console.log('result:', results.data)
     setMsg(results.data)
@@ -50,12 +50,12 @@ const Viewcourse = () => {
         <CModalHeader>
           <CModalTitle>Confirm Delete</CModalTitle>
         </CModalHeader>
-        <CModalBody className="h5">Are you sure you want to delete this item ?</CModalBody>
+        <CModalBody className="">Are you sure you want to delete this item ?</CModalBody>
         <CModalFooter>
           <CButton color="secondary" onClick={() => setVisible(false)}>
             Close
           </CButton>
-          <CButton color="danger" onClick={deleteitem}>
+          <CButton color="danger" className="text-white" onClick={deleteitem}>
             Delete
           </CButton>
         </CModalFooter>

@@ -16,7 +16,7 @@ const Addcourse = () => {
     e.preventDefault()
     async function enroll() {
       try {
-        let result = await axios.post('http://localhost:5000/course/users', user)
+        let result = await axios.post('http://localhost:5000/courses', user)
         console.log('result:', result)
         setMsg(result.data)
         setUser({
@@ -56,7 +56,7 @@ const Addcourse = () => {
           <div className="mb-3 me-3 row justify-content-md-center mx-2">
             <div>
               <label htmlFor="" className=" form-label">
-                Couse Name :
+                Course Name :
               </label>
             </div>
             <div className="me-3">

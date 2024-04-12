@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { useParams } from 'react-router-dom'
-import { SiElsevier } from 'react-icons/si'
 
 const Updatecourse = () => {
   const { id } = useParams()
@@ -25,7 +24,7 @@ const Updatecourse = () => {
 
   async function enroll() {
     try {
-      let result = await axios.get('http://localhost:5000/course/users/' + id)
+      let result = await axios.get('http://localhost:5000/courses/' + id)
       console.log('result:', result)
       setUser(result.data)
     } catch (err) {
@@ -40,13 +39,13 @@ const Updatecourse = () => {
 
     // console.log(user)
 
-    {
+    if (!error) {
       msg && navigate('/course/view')
     }
   }
   async function update() {
     try {
-      let asser = await axios.put('http://localhost:5000/course/users/' + id, user)
+      let asser = await axios.put('http://localhost:5000/courses/' + id, user)
       console.log(asser)
       setMsg(asser.data)
       setError()
@@ -54,7 +53,6 @@ const Updatecourse = () => {
       console.log(error)
       console.log('error:', error.response.data)
       setError(error.response.data)
-      setMsg()
     }
   }
   return (

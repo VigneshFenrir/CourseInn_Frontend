@@ -45,13 +45,13 @@ const _nav = [
     items: [
       {
         component: CNavItem,
-        name: 'Add User',
-        to: '/buttons/buttons',
+        name: 'Add Trainer',
+        to: '/trainer/add',
       },
       {
         component: CNavItem,
-        name: 'View User',
-        to: '/buttons/button-groups',
+        name: 'View Trainers',
+        to: '/trainer/view',
       },
     ],
   },

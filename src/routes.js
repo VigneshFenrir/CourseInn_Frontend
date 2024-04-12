@@ -8,8 +8,8 @@ const Viewcourse = React.lazy(() => import('./views/base/viewcourse/Viewcourse')
 const Updatecourse = React.lazy(() => import('./views/base/viewcourse/Updatecourse'))
 
 // Buttons
-const Buttons = React.lazy(() => import('./views/buttons/buttons/Buttons'))
-const ButtonGroups = React.lazy(() => import('./views/buttons/button-groups/ButtonGroups'))
+const Viewtrainer = React.lazy(() => import('./views/buttons/viewtrainer/Viewtrainer'))
+const Addtrainer = React.lazy(() => import('./views/buttons/addtrainer/Addtrainer'))
 
 //Forms
 
@@ -27,8 +27,8 @@ const routes = [
   { path: '/course/add', name: 'Add Course', element: Addcourse },
   { path: '/course/view', name: 'View Courses', element: Viewcourse },
   { path: '/course/update/:id', name: 'Update Course', element: Updatecourse },
-  { path: '/buttons/buttons', name: 'Buttons', element: Buttons },
-  { path: '/buttons/button-groups', name: 'Button Groups', element: ButtonGroups },
+  { path: '/trainer/view', name: 'View Trainer', element: Viewtrainer },
+  { path: '/trainer/add', name: 'Add Trainer', element: Addtrainer },
   { path: '/forms/form-control', name: 'Form Control', element: FormControl },
   { path: '/forms/select', name: 'Select', element: Select },
   { path: '/icons/flags', name: 'Flags', element: Flags },
