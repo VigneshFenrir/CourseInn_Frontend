@@ -49,11 +49,11 @@ const Addcourse = () => {
         <div className="d-flex justify-content-between border-bottom">
           <h2 className="h2 px-3 my-3 text-dark">Add Course</h2>
           <button className="btn btn-secondary m-3" onClick={viewall}>
-            View All
+            View Courses
           </button>
         </div>
         <form action="" className="px-3 py-4">
-          <div className="mb-3 me-3 row justify-content-md-center mx-2">
+          <div className="mb-3 me-3 row justify-content-md-center mx-2 h5">
             <div>
               <label htmlFor="" className=" form-label">
                 Course Name :
@@ -72,8 +72,8 @@ const Addcourse = () => {
             </div>
           </div>
 
-          <div className="mb-3 me-3 row justify-content-md-center mx-2 ">
-            <label htmlFor="" className=" form-label">
+          <div className="mb-3 me-3 row justify-content-md-center mx-2 h5 ">
+            <label htmlFor="" className=" form-label text-bold">
               Duration :
             </label>
             <div className="me-3">

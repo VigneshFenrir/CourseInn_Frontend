@@ -10,16 +10,17 @@ const Updatecourse = React.lazy(() => import('./views/base/viewcourse/Updatecour
 // Buttons
 const Viewtrainer = React.lazy(() => import('./views/buttons/viewtrainer/Viewtrainer'))
 const Addtrainer = React.lazy(() => import('./views/buttons/addtrainer/Addtrainer'))
+const Updatetrainer = React.lazy(() => import('./views/buttons/viewtrainer/Updatetrainer'))
 
 //Forms
 
-const FormControl = React.lazy(() => import('./views/forms/form-control/FormControl'))
-
-const Select = React.lazy(() => import('./views/forms/select/Select'))
+const Addbatch = React.lazy(() => import('./views/forms/addbatch/Addbatch'))
+const Viewbatch = React.lazy(() => import('./views/forms/viewbatch/Viewbatch'))
+const Updatebatch = React.lazy(() => import('./views/forms/viewbatch/Updatebatch'))
 
 // Icons
-const Flags = React.lazy(() => import('./views/icons/flags/Flags'))
-const Brands = React.lazy(() => import('./views/icons/brands/Brands'))
+const Viewstudent = React.lazy(() => import('./views/icons/viewstudent/Viewstudent'))
+const Addstudent = React.lazy(() => import('./views/icons/addstudent/Addstudent'))
 
 const routes = [
   { path: '/', exact: true, name: 'Home' },
@@ -29,10 +30,12 @@ const routes = [
   { path: '/course/update/:id', name: 'Update Course', element: Updatecourse },
   { path: '/trainer/view', name: 'View Trainer', element: Viewtrainer },
   { path: '/trainer/add', name: 'Add Trainer', element: Addtrainer },
-  { path: '/forms/form-control', name: 'Form Control', element: FormControl },
-  { path: '/forms/select', name: 'Select', element: Select },
-  { path: '/icons/flags', name: 'Flags', element: Flags },
-  { path: '/icons/brands', name: 'Brands', element: Brands },
+  { path: '/trainer/update/:id', name: 'Update Trainer', element: Updatetrainer },
+  { path: '/batch/add', name: 'Add Batch', element: Addbatch },
+  { path: '/batch/view', name: 'View Batch', element: Viewbatch },
+  { path: '/batch/update/:id', name: 'Update Batch', element: Updatebatch },
+  { path: '/student/view', name: 'View Student', element: Viewstudent },
+  { path: '/student/add/:id', name: 'Add Student', element: Addstudent },
 ]
 
 export default routes

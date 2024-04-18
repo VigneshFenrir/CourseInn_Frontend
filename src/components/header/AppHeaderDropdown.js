@@ -1,4 +1,3 @@
-import React from 'react'
 import {
   CAvatar,
   CBadge,
@@ -8,6 +7,7 @@ import {
   CDropdownItem,
   CDropdownMenu,
   CDropdownToggle,
+  CLink,
 } from '@coreui/react'
 import {
   cilBell,
@@ -15,16 +15,20 @@ import {
   cilCommentSquare,
   cilEnvelopeOpen,
   cilFile,
-  cilLockLocked,
   cilSettings,
   cilTask,
   cilUser,
 } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
+import { useNavigate } from 'react-router-dom'
 
 import avatar8 from 'src/assets/images/avatar.jpg'
 
 const AppHeaderDropdown = () => {
+  let navigate = useNavigate
+  const handleLogout = () => {
+    navigate('/login')
+  }
   return (
     <CDropdown variant="nav-item">
       <CDropdownToggle placement="bottom-end" className="py-0 pe-0" caret={false}>
@@ -84,10 +88,7 @@ const AppHeaderDropdown = () => {
           </CBadge>
         </CDropdownItem>
         <CDropdownDivider />
-        <CDropdownItem href="#">
-          <CIcon icon={cilLockLocked} className="me-2" />
-          Lock Account
-        </CDropdownItem>
+        <button onClick={handleLogout}>Logout</button>
       </CDropdownMenu>
     </CDropdown>
   )

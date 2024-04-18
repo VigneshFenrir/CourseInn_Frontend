@@ -1,5 +1,6 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState } from 'react'
+import axios from 'axios'
+
 import {
   CButton,
   CCard,
@@ -15,14 +16,51 @@ import {
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import { cilLockLocked, cilUser } from '@coreui/icons'
+import { useNavigate } from 'react-router-dom'
 
 const Login = () => {
+  const [login, setLogin] = useState({
+    email: '',
+    password: '',
+  })
+  const [error, setError] = useState()
+  const [msg, setMsg] = useState()
+  const navigate = useNavigate()
+
+  const savepost = (e) => {
+    e.preventDefault()
+    async function post() {
+      try {
+        let result = await axios.post('http://localhost:5000/academy/loginusers', login)
+        console.log('result:', result)
+        navigate('*')
+
+        setMsg(result.data)
+        setError()
+      } catch (err) {
+        console.log(err)
+        console.log('error:', err.response.data)
+        setError(err.response.data)
+        console.log(err.response.data.message)
+        setLogin({
+          email: '',
+          password: '',
+        })
+      }
+    }
+
+    post()
+  }
+  const forgetpassword = () => {
+    navigate('forgetpassword')
+  }
+
   return (
-    <div className="bg-body-tertiary min-vh-100 d-flex flex-row align-items-center">
-      <CContainer>
-        <CRow className="justify-content-center">
+    <div className=" vh-100 bg-body-tertiary text-center d-flex align-items-center backgroundimg">
+      <CContainer className=" w-50 ">
+        <CRow className="justify-content-center  ">
           <CCol md={8}>
-            <CCardGroup>
+            <CCardGroup className="gradient">
               <CCard className="p-4">
                 <CCardBody>
                   <CForm>
@@ -32,7 +70,14 @@ const Login = () => {
                       <CInputGroupText>
                         <CIcon icon={cilUser} />
                       </CInputGroupText>
-                      <CFormInput placeholder="Username" autoComplete="username" />
+                      <CFormInput
+                        placeholder="Mail"
+                        autoComplete="email"
+                        value={login.email}
+                        onChange={(e) => {
+                          setLogin({ ...login, email: e.target.value })
+                        }}
+                      />
                     </CInputGroup>
                     <CInputGroup className="mb-4">
                       <CInputGroupText>
@@ -42,37 +87,29 @@ const Login = () => {
                         type="password"
                         placeholder="Password"
                         autoComplete="current-password"
+                        value={login.password}
+                        onChange={(e) => {
+                          setLogin({ ...login, password: e.target.value })
+                        }}
                       />
                     </CInputGroup>
                     <CRow>
+                      <div>
+                        {msg && <p className="text-success">{msg}</p>}
+                        {!msg && <p className="text-danger">{error}</p>}
+                      </div>
                       <CCol xs={6}>
-                        <CButton color="primary" className="px-4">
+                        <CButton color="primary" className="px-4" onClick={savepost}>
                           Login
                         </CButton>
                       </CCol>
                       <CCol xs={6} className="text-right">
-                        <CButton color="link" className="px-0">
+                        <CButton color="link" className="px-0" onClick={forgetpassword}>
                           Forgot password?
                         </CButton>
                       </CCol>
                     </CRow>
                   </CForm>
-                </CCardBody>
-              </CCard>
-              <CCard className="text-white bg-primary py-5" style={{ width: '44%' }}>
-                <CCardBody className="text-center">
-                  <div>
-                    <h2>Sign up</h2>
-                    <p>
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                      tempor incididunt ut labore et dolore magna aliqua.
-                    </p>
-                    <Link to="/register">
-                      <CButton color="primary" className="mt-3" active tabIndex={-1}>
-                        Register Now!
-                      </CButton>
-                    </Link>
-                  </div>
                 </CCardBody>
               </CCard>
             </CCardGroup>

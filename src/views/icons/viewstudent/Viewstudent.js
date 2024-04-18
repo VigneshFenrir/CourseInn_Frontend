@@ -6,7 +6,7 @@ import { FaTrash } from 'react-icons/fa'
 import { FaMessage } from 'react-icons/fa6'
 import { CButton, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle } from '@coreui/react'
 
-const Viewcourse = () => {
+const Viewstudent = () => {
   const [user, setuser] = useState([])
   const [visible, setVisible] = useState(false)
   const [currentuser, setCurrentuser] = useState()
@@ -31,7 +31,7 @@ const Viewcourse = () => {
       console.log(page)
       setCurrentPage(page)
       console.log(currentPage)
-      let result = await axios.get(`http://localhost:5000/courses?page=${page}`)
+      let result = await axios.get(`http://localhost:5000/students?page=${page}`)
       // console.log(result)
       setuser(result.data)
     } catch (err) {
@@ -41,7 +41,7 @@ const Viewcourse = () => {
   // let totalitems
   async function pagination() {
     try {
-      let totalCount = await axios.get('http://localhost:5000/courses/total')
+      let totalCount = await axios.get('http://localhost:5000/students/total')
       const totalitems = totalCount.data
       setTotalitem(totalitems)
 
@@ -60,7 +60,7 @@ const Viewcourse = () => {
     setVisible(!visible)
   }
   const deleteitem = async () => {
-    let results = await axios.delete('http://localhost:5000/courses/' + currentuser._id)
+    let results = await axios.delete('http://localhost:5000/students/' + currentuser._id)
     console.log(results)
     console.log('result:', results.data)
     setMsg(results.data)
@@ -69,7 +69,7 @@ const Viewcourse = () => {
   }
 
   const adduser = () => {
-    navigate('/course/add')
+    navigate('/student/add')
   }
 
   return (
@@ -95,15 +95,19 @@ const Viewcourse = () => {
             Courses <span className="h5 text-success">({totalitem})</span>
           </h2>
           <button className="btn m-3  btn-info" onClick={adduser}>
-            Add Course
+            Add student
           </button>
         </div>
         <div className=" bg-light   ">
           <table className="table ">
             <thead>
               <tr>
+                <th>student Name</th>
+                <th>student Email</th>
+                <th>student mobile</th>
+                <th>Batch Name</th>
                 <th>Course Name</th>
-                <th>Duration</th>
+                <th>Trainer Name</th>
                 <th>Date</th>
                 <th>Action</th>
               </tr>
@@ -111,12 +115,16 @@ const Viewcourse = () => {
             <tbody>
               {user.map((user) => (
                 <tr key={user._id}>
-                  <td>{user.coursename}</td>
-                  <td>{user.duration}</td>
+                  <td>{user.student_name}</td>
+                  <td>{user.student_email}</td>
+                  <td>{user.student_mobile}</td>
+                  <td>{user.batches.batchname}</td>
+                  <td>{user.batches.trainer.course.coursename}</td>
+                  <td>{user.batches.trainer.tname}</td>
                   <td>{user.date}</td>
 
                   <td>
-                    <Link to={`/course/update/${user._id}`} className="text-warning d-inline h3 ">
+                    <Link to={`/student/add/${user._id}`} className="text-warning d-inline h3 ">
                       <FaMessage />
                     </Link>
                     <Link
@@ -147,4 +155,4 @@ const Viewcourse = () => {
   )
 }
 
-export default Viewcourse
+export default Viewstudent

@@ -3,26 +3,26 @@ import React, { useEffect } from 'react'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-const Addtrainer = () => {
-  const [courses, setCourse] = useState([])
-  const [user, setUser] = useState({
-    tname: '',
-    email: '',
-    mobile: '',
-    courseid: '',
-  })
+const Addbatch = () => {
+  const [trainer, setTrainer] = useState([])
   const [error, setError] = useState()
   const [msg, setMsg] = useState()
+  const [batch, setBatch] = useState({
+    batchname: '',
+    start_time: '',
+    end_time: '',
+    trainerid: '',
+  })
   const navigate = useNavigate()
 
   useEffect(() => {
-    enroll()
+    enrolls()
   }, [])
-  async function enroll() {
+  async function enrolls() {
     try {
-      let result = await axios.get('http://localhost:5000/courses')
+      let result = await axios.get('http://localhost:5000/trainers')
       console.log(result)
-      setCourse(result.data)
+      setTrainer(result.data)
     } catch (err) {
       console.log(err)
     }
@@ -32,15 +32,15 @@ const Addtrainer = () => {
     e.preventDefault()
     async function enroll() {
       try {
-        console.log(user)
-        let result = await axios.post('http://localhost:5000/trainers', user)
+        console.log(batch)
+        let result = await axios.post('http://localhost:5000/batches', batch)
         console.log('result:', result)
         setMsg(result.data)
-        setUser({
-          tname: '',
-          email: '',
-          mobile: '',
-          courseid: '',
+        setBatch({
+          batchname: '',
+          start_time: '',
+          end_time: '',
+          trainerid: '',
         })
         setError()
       } catch (err) {
@@ -54,7 +54,7 @@ const Addtrainer = () => {
   }
 
   const viewall = () => {
-    navigate('/trainer/view')
+    navigate('/batch/view')
   }
 
   return (
@@ -66,26 +66,26 @@ const Addtrainer = () => {
 
       <div className=" bg-white  border border-secondary rounded-3 ">
         <div className="d-flex justify-content-between border-bottom">
-          <h2 className="h2 px-3 my-3 text-dark">Add Trainer</h2>
+          <h2 className="h2 px-3 my-3 text-dark">Add Batch</h2>
           <button className="btn btn-secondary m-3" onClick={viewall}>
-            View Trainers
+            View Batches
           </button>
         </div>
         <form action="" className="px-3 py-4">
           <div className="mb-3 me-3 row justify-content-md-center mx-2 h5">
             <div>
               <label htmlFor="" className=" form-label">
-                Trainer Name :
+                Batch Name :
               </label>
             </div>
             <div className="">
               <input
                 type="text"
                 className="form-control ms-3 "
-                placeholder="Trainer Name"
-                value={user.tname}
+                placeholder="Batch Name"
+                value={batch.batchname}
                 onChange={(e) => {
-                  setUser({ ...user, tname: e.target.value })
+                  setBatch({ ...batch, batchname: e.target.value })
                 }}
               />
             </div>
@@ -93,15 +93,15 @@ const Addtrainer = () => {
 
           <div className="mb-3  row justify-content-md-center mx-2 h5">
             <label htmlFor="" className=" form-label">
-              Trainer Email :
+              Start Time :
             </label>
             <div className="me-3">
               <input
-                type="email"
-                placeholder="email"
-                value={user.email}
+                type="time"
+                placeholder="Start Time"
+                value={batch.start_time}
                 onChange={(e) => {
-                  setUser({ ...user, email: e.target.value })
+                  setBatch({ ...batch, start_time: e.target.value })
                 }}
                 className="form-control ms-3 "
               />
@@ -109,15 +109,15 @@ const Addtrainer = () => {
           </div>
           <div className="mb-3  row justify-content-md-center mx-2 h5">
             <label htmlFor="" className=" form-label">
-              Trainer Mobile no :
+              End Time :
             </label>
             <div className="me-3">
               <input
-                type="number"
-                placeholder="Mobile Number"
-                value={user.mobile}
+                type="time"
+                placeholder="End Time "
+                value={batch.end_time}
                 onChange={(e) => {
-                  setUser({ ...user, mobile: e.target.value })
+                  setBatch({ ...batch, end_time: e.target.value })
                 }}
                 className="form-control ms-3 "
               />
@@ -126,23 +126,23 @@ const Addtrainer = () => {
 
           <div className="mb-3 me-3 row justify-content-md-center mx-2 h5">
             <label htmlFor="" className="form-label">
-              Course Name :
+              Trainer Name :
             </label>
           </div>
 
           <div className="mb-3 me-3 row justify-content-md-center mx-2 ps-3 ">
             <select
-              name="coursename"
+              name="trainername"
               id=""
               className="form-select mx-3  "
               onChange={(e) => {
-                setUser({ ...user, courseid: e.target.value })
+                setBatch({ ...batch, trainerid: e.target.value })
               }}
             >
-              <option value="">courses</option>
-              {courses.map((course) => (
-                <option key={course.coursename} value={course._id}>
-                  {course.coursename}
+              <option value="">Trainer Name</option>
+              {trainer.map((trainers) => (
+                <option key={trainers.tname} value={trainers._id}>
+                  {trainers.tname}
                 </option>
               ))}
             </select>
@@ -159,4 +159,4 @@ const Addtrainer = () => {
   )
 }
 
-export default Addtrainer
+export default Addbatch
