@@ -33,7 +33,7 @@ const Login = () => {
       try {
         let result = await axios.post('http://localhost:5000/academy/loginusers', login)
         console.log('result:', result)
-        navigate('*')
+        navigate('/dashboard')
 
         setMsg(result.data)
         setError()

@@ -15,7 +15,7 @@ const Viewstudent = () => {
   const [currentPage, setCurrentPage] = useState(1)
   const navigate = useNavigate()
   const [totalitem, setTotalitem] = useState()
-  const usersPerPage = 8
+  const usersPerPage = 10
   let pageRange = []
 
   useEffect(() => {

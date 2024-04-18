@@ -12,16 +12,46 @@ const Viewbatch = () => {
   const [currentbatch, setCurrentbatch] = useState()
   const navigate = useNavigate()
   const [msg, setMsg] = useState()
+  const [totalitem, setTotalitem] = useState()
+  const [pageLinks, setPagelinks] = useState([])
+  const [currentPage, setCurrentPage] = useState(1)
+  const usersPerPage = 10
+  let pageRange = []
 
   useEffect(() => {
-    enroll()
+    enroll(1)
+    pagination()
   }, [])
 
-  async function enroll() {
+  const pageLinkClick = (page) => {
+    enroll(page)
+  }
+
+  async function enroll(page) {
     try {
-      let result = await axios.get('http://localhost:5000/batches')
+      console.log(page)
+      setCurrentPage(page)
+      console.log(currentPage)
+      let result = await axios.get(`http://localhost:5000/batches?page=${page}`)
       // console.log(result)
       setBatches(result.data)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  // let totalitems
+  async function pagination() {
+    try {
+      let totalCount = await axios.get('http://localhost:5000/batches/total')
+      const totalitems = totalCount.data
+      setTotalitem(totalitems)
+
+      let pgCount = Math.ceil(totalitems / usersPerPage)
+
+      pageRange = [...Array(pgCount).keys()].map((i) => i + 1)
+
+      setPagelinks(pageRange)
     } catch (err) {
       console.log(err)
     }
@@ -63,7 +93,15 @@ const Viewbatch = () => {
       {msg && <p className="alert alert-success">{msg}</p>}
       <div className=" bg-white   rounded-4 ">
         <div className="d-flex  justify-content-between border-bottom">
-          <h2 className=" h2 text-dark  p-2 px-3">Batches</h2>
+          <h2 className=" h2 text-dark  p-2 px-3">
+            Batches <span className="h5 text-success">({totalitem})</span>
+          </h2>
+          <div className="pt-3 ">
+            <form className="col-12  d-flex  justify-content-between ">
+              <input type="search" placeholder="search" className="form-control " />
+              <button className="btn btn-primary ms-2">search</button>
+            </form>
+          </div>
           <button className="btn m-3  btn-info" onClick={addtrainer}>
             Add Batch
           </button>
@@ -106,6 +144,17 @@ const Viewbatch = () => {
               ))}
             </tbody>
           </table>
+        </div>
+        <div className="pagination justify-content-center  ">
+          {pageLinks.map((pageNumber) => (
+            <button
+              key={pageNumber}
+              className={`page-button m-1 px-2 ${currentPage === pageNumber ? 'bg-dark' : ''} text-info  rounded-2`}
+              onClick={() => pageLinkClick(pageNumber)}
+            >
+              {pageNumber}
+            </button>
+          ))}
         </div>
       </div>
     </>
