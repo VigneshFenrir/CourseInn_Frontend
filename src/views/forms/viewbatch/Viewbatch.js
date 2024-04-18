@@ -9,6 +9,7 @@ import { CButton, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle } 
 const Viewbatch = () => {
   const [batches, setBatches] = useState([])
   const [visible, setVisible] = useState(false)
+  const [query, setQuery] = useState('')
   const [currentbatch, setCurrentbatch] = useState()
   const navigate = useNavigate()
   const [msg, setMsg] = useState()
@@ -32,7 +33,8 @@ const Viewbatch = () => {
       console.log(page)
       setCurrentPage(page)
       console.log(currentPage)
-      let result = await axios.get(`http://localhost:5000/batches?page=${page}`)
+      console.log(query)
+      let result = await axios.get(`http://localhost:5000/batches?page=${page}&search=${query}`)
       // console.log(result)
       setBatches(result.data)
     } catch (err) {
@@ -56,6 +58,11 @@ const Viewbatch = () => {
       console.log(err)
     }
   }
+  const handleInputChange = (event) => {
+    setQuery(event.target.value)
+
+    // enroll(1)
+  }
 
   const handledelete = (batch) => {
     setCurrentbatch(batch)
@@ -73,6 +80,9 @@ const Viewbatch = () => {
 
   const addtrainer = () => {
     navigate('/batch/add')
+  }
+  const searchofbatch = () => {
+    enroll(1)
   }
   return (
     <>
@@ -98,8 +108,16 @@ const Viewbatch = () => {
           </h2>
           <div className="pt-3 ">
             <form className="col-12  d-flex  justify-content-between ">
-              <input type="search" placeholder="search" className="form-control " />
-              <button className="btn btn-primary ms-2">search</button>
+              <input
+                type="text"
+                placeholder="search..."
+                onChange={handleInputChange}
+                value={query}
+                className="form-control "
+              />
+              <button className="btn btn-primary ms-2" onClick={searchofbatch}>
+                search
+              </button>
             </form>
           </div>
           <button className="btn m-3  btn-info" onClick={addtrainer}>
