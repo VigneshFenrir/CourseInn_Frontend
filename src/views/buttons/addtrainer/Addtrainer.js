@@ -42,6 +42,7 @@ const Addtrainer = () => {
           mobile: '',
           courseid: '',
         })
+        navigate('/trainer/add')
         setError()
       } catch (err) {
         console.log(err)
@@ -135,6 +136,7 @@ const Addtrainer = () => {
               name="coursename"
               id=""
               className="form-select mx-3  "
+              value={user.courseid}
               onChange={(e) => {
                 setUser({ ...user, courseid: e.target.value })
               }}

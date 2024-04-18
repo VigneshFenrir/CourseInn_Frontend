@@ -8,7 +8,7 @@ const Forgetpassword = () => {
   const [user, setUser] = useState({})
   const [error, setError] = useState()
   const [userid, setuserid] = useState()
-  const [emailed, setEmailed] = useState()
+  const [emailed, setEmailed] = useState([])
   const navigate = useNavigate()
 
   const sendemail = async (e) => {
@@ -85,7 +85,7 @@ const Forgetpassword = () => {
             <div className="row justify-content-center">
               <div className="col-5">
                 <input
-                  className="form-control text-center "
+                  className="form-control  "
                   type="email"
                   placeholder="Enter Your Mail Id"
                   value={user.email}
@@ -111,7 +111,7 @@ const Forgetpassword = () => {
           <form className=" text-center form-group " onSubmit={verifyotp}>
             <div className="row justify-content-center">
               <p className="h5 pb-2">
-                Mail Sending :<span className="text-info"> {emailed}</span>
+                Mail Sending :<span className="text-info">{emailed}</span>
               </p>
               <div className="col-5">
                 <input

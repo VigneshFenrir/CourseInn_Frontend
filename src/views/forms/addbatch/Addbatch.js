@@ -61,7 +61,7 @@ const Addbatch = () => {
     <>
       <div>
         {msg && <p className="alert alert-success">{msg}</p>}
-        {error && <p className="alert alert-danger">{error}</p>}
+        {!msg && <p className="alert alert-danger">{error}</p>}
       </div>
 
       <div className=" bg-white  border border-secondary rounded-3 ">

@@ -100,6 +100,7 @@ const Viewbatch = () => {
             <form className="col-12  d-flex  justify-content-between ">
               <input type="search" placeholder="search" className="form-control " />
               <button className="btn btn-primary ms-2">search</button>
+              <div></div>
             </form>
           </div>
           <button className="btn m-3  btn-info" onClick={addtrainer}>

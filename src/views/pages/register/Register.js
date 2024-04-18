@@ -38,10 +38,7 @@ const Register = () => {
         console.log(register)
         let result = await axios.post('http://localhost:5000/academy/signinusers', register)
         console.log('result:', result)
-        if (password !== confirm_password) {
-          setError("Password Doesn't Match")
-          return
-        }
+
         navigate('*')
         setMsg(result.data)
 
@@ -126,7 +123,7 @@ const Register = () => {
                       <CIcon icon={cilLockLocked} />
                     </CInputGroupText>
                     <CFormInput
-                      type="password"
+                      type="text"
                       placeholder="Repeat password"
                       autoComplete="new-password"
                       value={register.confirm_password}
