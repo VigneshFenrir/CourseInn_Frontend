@@ -31,7 +31,7 @@ const Login = () => {
     e.preventDefault()
     async function post() {
       try {
-        let result = await axios.post('http://localhost:5000/academy/loginusers', login)
+        let result = await axios.post('http://localhost:5000/academy/loginuser', login)
         console.log('result:', result)
         navigate('/dashboard')
 

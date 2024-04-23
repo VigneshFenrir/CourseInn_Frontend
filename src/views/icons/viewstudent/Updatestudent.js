@@ -1,13 +1,10 @@
-import axios from 'axios'
-import React, { useEffect } from 'react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
+import { useParams } from 'react-router-dom'
 
-const Addstudent = () => {
-  const [batches, setBatches] = useState([])
-  const [error, setError] = useState()
-  const [msg, setMsg] = useState()
-  // const { id } = useParams()
+const Updatestudent = () => {
+  const { id } = useParams()
   const [student, setStudent] = useState({
     student_name: '',
     student_email: '',
@@ -16,21 +13,44 @@ const Addstudent = () => {
     student_education: '',
     batchid: '',
   })
+  const [error, setError] = useState()
+  const [msg, setMsg] = useState()
+  const [batch, setBatch] = useState([])
   const navigate = useNavigate()
 
+  const back = () => {
+    navigate('/student/view')
+  }
+
+  // batch get
   useEffect(() => {
-    enroll(1)
+    enrolls()
   }, [])
-  async function enroll() {
+
+  async function enrolls() {
     try {
       let result = await axios.get('http://localhost:5000/batches')
       console.log(result)
-      setBatches(result.data)
+      setBatch(result.data)
     } catch (err) {
       console.log(err)
     }
   }
+  // student get
+  useEffect(() => {
+    enroll()
+  }, [])
 
+  async function enroll() {
+    try {
+      let result = await axios.get('http://localhost:5000/students/' + id)
+      console.log('result:', result)
+      setStudent(result.data)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+  //  trainer update
   const goToTop = () => {
     window.scrollTo({
       top: 0,
@@ -38,53 +58,42 @@ const Addstudent = () => {
     })
   }
 
-  const savepost = (e) => {
+  const updatestudent = (e) => {
     e.preventDefault()
-    async function post() {
-      try {
-        let result = await axios.post('http://localhost:5000/students', student)
-        console.log('result:', result)
-        setMsg(result.data)
-        goToTop()
 
-        setStudent({
-          student_name: '',
-          student_email: '',
-          student_mobile: '',
-          student_address: '',
-          student_education: '',
-          batchid: '',
-        })
-        setError()
-      } catch (err) {
-        console.log(err)
-        console.log('error:', err.response.data)
+    update()
+    goToTop()
 
-        setError(err.response.data)
-        goToTop()
-      }
+    // console.log(user)
+
+    if (!error) {
+      msg && navigate('/students/view')
     }
-
-    post()
   }
-  console.log(student)
+  async function update() {
+    try {
+      let asser = await axios.put('http://localhost:5000/students/' + id, student)
+      console.log(asser)
+      setMsg(asser.data)
 
-  const viewall = () => {
-    navigate('/student/view')
+      setError()
+    } catch (error) {
+      console.log(error)
+      console.log('error:', error.response.data)
+      setError(error.response.data)
+    }
   }
-
   return (
     <>
       <div>
         {msg && <p className="alert alert-success">{msg}</p>}
         {error && <p className="alert alert-danger">{error}</p>}
       </div>
-
       <div className=" bg-white  border border-secondary rounded-3 ">
         <div className="d-flex justify-content-between border-bottom">
-          <h2 className="h2 px-3 my-3 text-dark">Add Student</h2>
-          <button className="btn btn-secondary m-3" onClick={viewall}>
-            View Students
+          <h2 className=" h2  text-dark p-2 px-3">Update student</h2>
+          <button className="btn m-3  btn-secondary " onClick={back}>
+            Back
           </button>
         </div>
         <form action="" className="px-3 py-4">
@@ -191,16 +200,16 @@ const Addstudent = () => {
               }}
             >
               <option value="">Batch Name</option>
-              {batches.map((batch) => (
-                <option key={batch.batchname} value={batch._id}>
-                  {batch.batchname}
+              {batch.map((batches) => (
+                <option key={batches.batchname} value={batches._id}>
+                  {batches.batchname}
                 </option>
               ))}
             </select>
           </div>
 
           <div className="text-start  my-3 ">
-            <button className="btn btn-primary  px-3 " onClick={savepost}>
+            <button className="btn btn-primary  px-3 " onClick={updatestudent}>
               Submit
             </button>
           </div>
@@ -210,4 +219,4 @@ const Addstudent = () => {
   )
 }
 
-export default Addstudent
+export default Updatestudent

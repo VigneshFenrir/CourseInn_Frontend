@@ -61,7 +61,7 @@ const Addbatch = () => {
     <>
       <div>
         {msg && <p className="alert alert-success">{msg}</p>}
-        {!msg && <p className="alert alert-danger">{error}</p>}
+        {error && <p className="alert alert-danger">{error}</p>}
       </div>
 
       <div className=" bg-white  border border-secondary rounded-3 ">
@@ -135,6 +135,7 @@ const Addbatch = () => {
               name="trainername"
               id=""
               className="form-select mx-3  "
+              value={batch.trainerid}
               onChange={(e) => {
                 setBatch({ ...batch, trainerid: e.target.value })
               }}

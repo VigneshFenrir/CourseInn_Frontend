@@ -92,7 +92,7 @@ const Viewstudent = () => {
       <div className=" bg-white   rounded-4 ">
         <div className="d-flex  justify-content-between border-bottom">
           <h2 className=" h2 text-dark  p-2 px-3">
-            Courses <span className="h5 text-success">({totalitem})</span>
+            Students <span className="h5 text-success">({totalitem})</span>
           </h2>
           <button className="btn m-3  btn-info" onClick={adduser}>
             Add student
@@ -124,7 +124,7 @@ const Viewstudent = () => {
                   <td>{user.date}</td>
 
                   <td>
-                    <Link to={`/student/add/${user._id}`} className="text-warning d-inline h3 ">
+                    <Link to={`/student/update/${user._id}`} className="text-warning d-inline h3 ">
                       <FaMessage />
                     </Link>
                     <Link

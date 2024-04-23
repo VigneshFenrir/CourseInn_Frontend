@@ -75,13 +75,13 @@ const _nav = [
 
   {
     component: CNavGroup,
-    name: 'student',
+    name: 'Student',
     icon: <CIcon icon={cilStar} customClassName="nav-icon" />,
     items: [
       {
         component: CNavItem,
         name: 'Add Student',
-        to: '/student/add/:id',
+        to: '/student/add',
       },
       {
         component: CNavItem,
@@ -92,28 +92,19 @@ const _nav = [
   },
 
   {
-    component: CNavTitle,
-    name: 'Extras',
-  },
-  {
     component: CNavGroup,
-    name: 'Pages',
+    name: 'User',
     icon: <CIcon icon={cilStar} customClassName="nav-icon" />,
     items: [
       {
         component: CNavItem,
-        name: 'Register',
-        to: '/register',
+        name: 'Add User',
+        to: '/user/add',
       },
       {
         component: CNavItem,
-        name: 'Error 404',
-        to: '/404',
-      },
-      {
-        component: CNavItem,
-        name: 'Error 500',
-        to: '/500',
+        name: 'View User',
+        to: '/user/view',
       },
     ],
   },

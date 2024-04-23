@@ -1,5 +1,6 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import PropTypes from 'prop-types'
+import axios from 'axios'
 
 import {
   CRow,
@@ -13,11 +14,20 @@ import {
 import { getStyle } from '@coreui/utils'
 import { CChartBar, CChartLine } from '@coreui/react-chartjs'
 import CIcon from '@coreui/icons-react'
-import { cilArrowBottom, cilArrowTop, cilOptions } from '@coreui/icons'
+import { cilOptions } from '@coreui/icons'
+import { useNavigate } from 'react-router-dom'
 
 const WidgetsDropdown = (props) => {
   const widgetChartRef1 = useRef(null)
   const widgetChartRef2 = useRef(null)
+  const [user, setuser] = useState({
+    course: '',
+    train: '',
+    btch: '',
+    stud: '',
+    btch: '',
+  })
+  const navigate = useNavigate()
 
   useEffect(() => {
     document.documentElement.addEventListener('ColorSchemeChange', () => {
@@ -35,32 +45,58 @@ const WidgetsDropdown = (props) => {
         })
       }
     })
+    enroll()
   }, [widgetChartRef1, widgetChartRef2])
+
+  async function enroll() {
+    try {
+      let result = await axios.get(`http://localhost:5000/operations`)
+      // console.log(result)
+      setuser(result.data)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+  const viewcourse = () => {
+    navigate('/course/view')
+  }
+  const addcourse = () => {
+    navigate('/course/add')
+  }
+  const viewtrainer = () => {
+    navigate('/trainer/view')
+  }
+  const addtrainer = () => {
+    navigate('/trainer/add')
+  }
+  const viewbatch = () => {
+    navigate('/batch/view')
+  }
+  const addbatch = () => {
+    navigate('/batch/add')
+  }
+  const Viewstudent = () => {
+    navigate('/student/view')
+  }
+  const addstudent = () => {
+    navigate('/]student/add')
+  }
 
   return (
     <CRow className={props.className} xs={{ gutter: 4 }}>
       <CCol sm={6} xl={4} xxl={3}>
         <CWidgetStatsA
           color="primary"
-          value={
-            <>
-              26K{' '}
-              <span className="fs-6 fw-normal">
-                (-12.4% <CIcon icon={cilArrowBottom} />)
-              </span>
-            </>
-          }
-          title="Users"
+          value={<>{user.course}</>}
+          title="Courses"
           action={
             <CDropdown alignment="end">
               <CDropdownToggle color="transparent" caret={false} className="text-white p-0">
                 <CIcon icon={cilOptions} />
               </CDropdownToggle>
               <CDropdownMenu>
-                <CDropdownItem>Action</CDropdownItem>
-                <CDropdownItem>Another action</CDropdownItem>
-                <CDropdownItem>Something else here...</CDropdownItem>
-                <CDropdownItem disabled>Disabled action</CDropdownItem>
+                <CDropdownItem onClick={viewcourse}>View Courses</CDropdownItem>
+                <CDropdownItem onClick={addcourse}>Add Course</CDropdownItem>
               </CDropdownMenu>
             </CDropdown>
           }
@@ -132,25 +168,16 @@ const WidgetsDropdown = (props) => {
       <CCol sm={6} xl={4} xxl={3}>
         <CWidgetStatsA
           color="info"
-          value={
-            <>
-              $6.200{' '}
-              <span className="fs-6 fw-normal">
-                (40.9% <CIcon icon={cilArrowTop} />)
-              </span>
-            </>
-          }
-          title="Income"
+          value={<>{user.train}</>}
+          title="Trainers"
           action={
             <CDropdown alignment="end">
               <CDropdownToggle color="transparent" caret={false} className="text-white p-0">
                 <CIcon icon={cilOptions} />
               </CDropdownToggle>
               <CDropdownMenu>
-                <CDropdownItem>Action</CDropdownItem>
-                <CDropdownItem>Another action</CDropdownItem>
-                <CDropdownItem>Something else here...</CDropdownItem>
-                <CDropdownItem disabled>Disabled action</CDropdownItem>
+                <CDropdownItem onClick={viewtrainer}>View Courses</CDropdownItem>
+                <CDropdownItem onClick={addtrainer}>Add Course</CDropdownItem>
               </CDropdownMenu>
             </CDropdown>
           }
@@ -221,25 +248,16 @@ const WidgetsDropdown = (props) => {
       <CCol sm={6} xl={4} xxl={3}>
         <CWidgetStatsA
           color="warning"
-          value={
-            <>
-              2.49%{' '}
-              <span className="fs-6 fw-normal">
-                (84.7% <CIcon icon={cilArrowTop} />)
-              </span>
-            </>
-          }
-          title="Conversion Rate"
+          value={<>{user.btch}</>}
+          title="Batchs"
           action={
             <CDropdown alignment="end">
               <CDropdownToggle color="transparent" caret={false} className="text-white p-0">
                 <CIcon icon={cilOptions} />
               </CDropdownToggle>
               <CDropdownMenu>
-                <CDropdownItem>Action</CDropdownItem>
-                <CDropdownItem>Another action</CDropdownItem>
-                <CDropdownItem>Something else here...</CDropdownItem>
-                <CDropdownItem disabled>Disabled action</CDropdownItem>
+                <CDropdownItem onClick={viewbatch}>View Courses</CDropdownItem>
+                <CDropdownItem onClick={addbatch}>Add Course</CDropdownItem>
               </CDropdownMenu>
             </CDropdown>
           }
@@ -293,25 +311,16 @@ const WidgetsDropdown = (props) => {
       <CCol sm={6} xl={4} xxl={3}>
         <CWidgetStatsA
           color="danger"
-          value={
-            <>
-              44K{' '}
-              <span className="fs-6 fw-normal">
-                (-23.6% <CIcon icon={cilArrowBottom} />)
-              </span>
-            </>
-          }
-          title="Sessions"
+          value={<>{user.stud}</>}
+          title="Students"
           action={
             <CDropdown alignment="end">
               <CDropdownToggle color="transparent" caret={false} className="text-white p-0">
                 <CIcon icon={cilOptions} />
               </CDropdownToggle>
               <CDropdownMenu>
-                <CDropdownItem>Action</CDropdownItem>
-                <CDropdownItem>Another action</CDropdownItem>
-                <CDropdownItem>Something else here...</CDropdownItem>
-                <CDropdownItem disabled>Disabled action</CDropdownItem>
+                <CDropdownItem onClick={Viewstudent}>View Courses</CDropdownItem>
+                <CDropdownItem onClick={addstudent}>Add Course</CDropdownItem>
               </CDropdownMenu>
             </CDropdown>
           }

@@ -2,25 +2,31 @@ import React from 'react'
 
 const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
 
-// Base
+// course
 const Addcourse = React.lazy(() => import('./views/base/addcourse/Addcourse'))
 const Viewcourse = React.lazy(() => import('./views/base/viewcourse/Viewcourse'))
 const Updatecourse = React.lazy(() => import('./views/base/viewcourse/Updatecourse'))
 
-// Buttons
+// trainer
 const Viewtrainer = React.lazy(() => import('./views/buttons/viewtrainer/Viewtrainer'))
 const Addtrainer = React.lazy(() => import('./views/buttons/addtrainer/Addtrainer'))
 const Updatetrainer = React.lazy(() => import('./views/buttons/viewtrainer/Updatetrainer'))
 
-//Forms
+//batch
 
 const Addbatch = React.lazy(() => import('./views/forms/addbatch/Addbatch'))
 const Viewbatch = React.lazy(() => import('./views/forms/viewbatch/Viewbatch'))
 const Updatebatch = React.lazy(() => import('./views/forms/viewbatch/Updatebatch'))
 
-// Icons
+// student
 const Viewstudent = React.lazy(() => import('./views/icons/viewstudent/Viewstudent'))
 const Addstudent = React.lazy(() => import('./views/icons/addstudent/Addstudent'))
+const Updatestudent = React.lazy(() => import('./views/icons/viewstudent/Updatestudent'))
+
+// users
+const Viewuser = React.lazy(() => import('./views/pages/register/Userview'))
+const Adduser = React.lazy(() => import('./views/pages/register/Adduser'))
+const Updateuser = React.lazy(() => import('./views/pages/register/updateuser'))
 
 const routes = [
   { path: '/', exact: true, name: 'Home' },
@@ -35,7 +41,11 @@ const routes = [
   { path: '/batch/view', name: 'View Batch', element: Viewbatch },
   { path: '/batch/update/:id', name: 'Update Batch', element: Updatebatch },
   { path: '/student/view', name: 'View Student', element: Viewstudent },
-  { path: '/student/add/:id', name: 'Add Student', element: Addstudent },
+  { path: '/student/add', name: 'Add Student', element: Addstudent },
+  { path: '/student/update/:id', name: 'Update student', element: Updatestudent },
+  { path: '/user/view', name: 'View User', element: Viewuser },
+  { path: '/user/add', name: 'Add User', element: Adduser },
+  { path: '/user/update/:id', name: 'Update User', element: Updateuser },
 ]
 
 export default routes

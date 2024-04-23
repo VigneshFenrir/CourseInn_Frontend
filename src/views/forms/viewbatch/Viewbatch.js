@@ -60,8 +60,12 @@ const Viewbatch = () => {
   }
   const handleInputChange = (event) => {
     setQuery(event.target.value)
-
-    // enroll(1)
+    console.log(event.target.value)
+    if (!event.target.value) {
+      console.log('if')
+      setQuery(null)
+      enroll(1)
+    }
   }
 
   const handledelete = (batch) => {
@@ -108,8 +112,15 @@ const Viewbatch = () => {
           </h2>
           <div className="pt-3 ">
             <form className="col-12  d-flex  justify-content-between ">
-              <input type="search" placeholder="search" className="form-control " />
-              <button className="btn btn-primary ms-2">search</button>
+              <input
+                type="search"
+                placeholder="search"
+                onChange={handleInputChange}
+                className="form-control "
+              />
+              <button className="btn btn-primary ms-2" onClick={searchofbatch}>
+                search
+              </button>
             </form>
           </div>
           <button className="btn m-3  btn-info" onClick={addtrainer}>
