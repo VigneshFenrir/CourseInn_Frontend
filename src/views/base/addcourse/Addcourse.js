@@ -45,9 +45,9 @@ const Addcourse = () => {
         {error && <p className="alert alert-danger">{error}</p>}
       </div>
 
-      <div className=" bg-white  border border-secondary rounded-3 ">
+      <div className=" card  border border-secondary rounded-3  rocked">
         <div className="d-flex justify-content-between border-bottom">
-          <h2 className="h2 px-3 my-3 text-dark">Add Course</h2>
+          <h2 className="h2 px-3 my-3 ">Add Course</h2>
           <button className="btn btn-secondary m-3" onClick={viewall}>
             View Courses
           </button>
@@ -63,7 +63,7 @@ const Addcourse = () => {
               <input
                 type="text"
                 className="form-control ms-4 "
-                placeholder="Coruse Name"
+                placeholder="Course Name"
                 value={user.coursename}
                 onChange={(e) => {
                   setUser({ ...user, coursename: e.target.value })

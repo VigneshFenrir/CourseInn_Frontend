@@ -8,9 +8,9 @@ const Viewcourse = React.lazy(() => import('./views/base/viewcourse/Viewcourse')
 const Updatecourse = React.lazy(() => import('./views/base/viewcourse/Updatecourse'))
 
 // trainer
-const Viewtrainer = React.lazy(() => import('./views/buttons/viewtrainer/Viewtrainer'))
-const Addtrainer = React.lazy(() => import('./views/buttons/addtrainer/Addtrainer'))
-const Updatetrainer = React.lazy(() => import('./views/buttons/viewtrainer/Updatetrainer'))
+const Viewtrainer = React.lazy(() => import('./views/Trainer/viewtrainer/Viewtrainer'))
+const Addtrainer = React.lazy(() => import('./views/Trainer/addtrainer/Addtrainer'))
+const Updatetrainer = React.lazy(() => import('./views/Trainer/viewtrainer/Updatetrainer'))
 
 //batch
 

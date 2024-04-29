@@ -16,6 +16,7 @@ import { CChartBar, CChartLine } from '@coreui/react-chartjs'
 import CIcon from '@coreui/icons-react'
 import { cilOptions } from '@coreui/icons'
 import { useNavigate } from 'react-router-dom'
+import CountUp from 'react-countup'
 
 const WidgetsDropdown = (props) => {
   const widgetChartRef1 = useRef(null)
@@ -87,8 +88,18 @@ const WidgetsDropdown = (props) => {
       <CCol sm={6} xl={4} xxl={3}>
         <CWidgetStatsA
           color="primary"
-          value={<>{user.course}</>}
-          title="Courses"
+          value={
+            <>
+              <span className="h1">
+                <CountUp end={user.course} duration={1} />
+              </span>
+            </>
+          }
+          title={
+            <>
+              <span className="display-5">{'Courses'}</span>
+            </>
+          }
           action={
             <CDropdown alignment="end">
               <CDropdownToggle color="transparent" caret={false} className="text-white p-0">
@@ -168,8 +179,18 @@ const WidgetsDropdown = (props) => {
       <CCol sm={6} xl={4} xxl={3}>
         <CWidgetStatsA
           color="info"
-          value={<>{user.train}</>}
-          title="Trainers"
+          value={
+            <>
+              <span className="h1">
+                <CountUp end={user.train} duration={1} />
+              </span>
+            </>
+          }
+          title={
+            <>
+              <span className="display-5">{'Trainers'}</span>
+            </>
+          }
           action={
             <CDropdown alignment="end">
               <CDropdownToggle color="transparent" caret={false} className="text-white p-0">
@@ -248,8 +269,19 @@ const WidgetsDropdown = (props) => {
       <CCol sm={6} xl={4} xxl={3}>
         <CWidgetStatsA
           color="warning"
-          value={<>{user.btch}</>}
-          title="Batchs"
+          value={
+            <>
+              <span className="h1">
+                {' '}
+                <CountUp end={user.btch} duration={1} />
+              </span>
+            </>
+          }
+          title={
+            <>
+              <span className="display-5">{'Batches'}</span>
+            </>
+          }
           action={
             <CDropdown alignment="end">
               <CDropdownToggle color="transparent" caret={false} className="text-white p-0">
@@ -311,8 +343,19 @@ const WidgetsDropdown = (props) => {
       <CCol sm={6} xl={4} xxl={3}>
         <CWidgetStatsA
           color="danger"
-          value={<>{user.stud}</>}
-          title="Students"
+          value={
+            <>
+              <span className="h1">
+                {' '}
+                <CountUp end={user.stud} duration={1} />
+              </span>
+            </>
+          }
+          title={
+            <>
+              <span className="display-5">{'Students'}</span>
+            </>
+          }
           action={
             <CDropdown alignment="end">
               <CDropdownToggle color="transparent" caret={false} className="text-white p-0">

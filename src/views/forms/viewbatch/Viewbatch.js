@@ -105,9 +105,9 @@ const Viewbatch = () => {
         </CModalFooter>
       </CModal>
       {msg && <p className="alert alert-success">{msg}</p>}
-      <div className=" bg-white   rounded-4 ">
+      <div className=" card rounded-4 ">
         <div className="d-flex  justify-content-between border-bottom">
-          <h2 className=" h2 text-dark  p-2 px-3">
+          <h2 className=" h2  p-2 px-3">
             Batches <span className="h5 text-success">({totalitem})</span>
           </h2>
           <div className="pt-3 ">
@@ -127,7 +127,7 @@ const Viewbatch = () => {
             Add Batch
           </button>
         </div>
-        <div className=" bg-light   ">
+        <div className="   ">
           <table className="table ">
             <thead>
               <tr>

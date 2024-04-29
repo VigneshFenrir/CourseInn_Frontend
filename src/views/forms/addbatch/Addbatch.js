@@ -64,9 +64,9 @@ const Addbatch = () => {
         {error && <p className="alert alert-danger">{error}</p>}
       </div>
 
-      <div className=" bg-white  border border-secondary rounded-3 ">
+      <div className="  card border border-secondary rounded-3 ">
         <div className="d-flex justify-content-between border-bottom">
-          <h2 className="h2 px-3 my-3 text-dark">Add Batch</h2>
+          <h2 className="h2 px-3 my-3 ">Add Batch</h2>
           <button className="btn btn-secondary m-3" onClick={viewall}>
             View Batches
           </button>

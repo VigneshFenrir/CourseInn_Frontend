@@ -50,7 +50,7 @@ const Updatestudent = () => {
       console.log(err)
     }
   }
-  //  trainer update
+
   const goToTop = () => {
     window.scrollTo({
       top: 0,
@@ -89,9 +89,9 @@ const Updatestudent = () => {
         {msg && <p className="alert alert-success">{msg}</p>}
         {error && <p className="alert alert-danger">{error}</p>}
       </div>
-      <div className=" bg-white  border border-secondary rounded-3 ">
+      <div className=" card  border border-secondary rounded-3 ">
         <div className="d-flex justify-content-between border-bottom">
-          <h2 className=" h2  text-dark p-2 px-3">Update student</h2>
+          <h2 className=" h2   p-2 px-3">Update student</h2>
           <button className="btn m-3  btn-secondary " onClick={back}>
             Back
           </button>

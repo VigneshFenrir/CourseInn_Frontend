@@ -90,16 +90,16 @@ const Userview = () => {
           </CModalFooter>
         </CModal>
         {msg && <p className="alert alert-success">{msg}</p>}
-        <div className=" bg-white   rounded-4 ">
+        <div className="  card  rounded-4 ">
           <div className="d-flex  justify-content-between border-bottom">
-            <h2 className=" h2 text-dark  p-2 px-3">
+            <h2 className=" h2   p-2 px-3">
               Users <span className="h5 text-success">({totalitem})</span>
             </h2>
             <button className="btn m-3  btn-info" onClick={adduser}>
               Add User
             </button>
           </div>
-          <div className=" bg-light   ">
+          <div className="   ">
             <table className="table ">
               <thead>
                 <tr>

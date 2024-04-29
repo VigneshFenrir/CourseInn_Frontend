@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 
 const Addstudent = () => {
   const [batches, setBatches] = useState([])
+  const [courses, setCourses] = useState([])
   const [error, setError] = useState()
   const [msg, setMsg] = useState()
   // const { id } = useParams()
@@ -15,11 +16,13 @@ const Addstudent = () => {
     student_address: '',
     student_education: '',
     batchid: '',
+    courseid: '',
   })
   const navigate = useNavigate()
 
   useEffect(() => {
     enroll(1)
+    getCourse()
   }, [])
   async function enroll() {
     try {
@@ -36,6 +39,15 @@ const Addstudent = () => {
       top: 0,
       behavior: 'smooth',
     })
+  }
+  async function getCourse() {
+    try {
+      let result = await axios.get('http://localhost:5000/courses')
+      console.log(result)
+      setCourses(result.data)
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   const savepost = (e) => {
@@ -54,6 +66,7 @@ const Addstudent = () => {
           student_address: '',
           student_education: '',
           batchid: '',
+          courseid: '',
         })
         setError()
       } catch (err) {
@@ -80,9 +93,9 @@ const Addstudent = () => {
         {error && <p className="alert alert-danger">{error}</p>}
       </div>
 
-      <div className=" bg-white  border border-secondary rounded-3 ">
+      <div className=" card  border border-secondary rounded-3 ">
         <div className="d-flex justify-content-between border-bottom">
-          <h2 className="h2 px-3 my-3 text-dark">Add Student</h2>
+          <h2 className="h2 px-3 my-3 ">Add Student</h2>
           <button className="btn btn-secondary m-3" onClick={viewall}>
             View Students
           </button>
@@ -194,6 +207,30 @@ const Addstudent = () => {
               {batches.map((batch) => (
                 <option key={batch.batchname} value={batch._id}>
                   {batch.batchname}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="mb-3 me-3 row justify-content-md-center mx-2 h5">
+            <label htmlFor="" className="form-label">
+              Course Name :
+            </label>
+          </div>
+
+          <div className="mb-3 me-3 row justify-content-md-center mx-2 ps-3 ">
+            <select
+              name="Coursename"
+              id=""
+              className="form-select mx-3  "
+              value={student.courseid}
+              onChange={(e) => {
+                setStudent({ ...student, courseid: e.target.value })
+              }}
+            >
+              <option value="">Course Name</option>
+              {courses.map((course) => (
+                <option key={course.coursename} value={course._id}>
+                  {course.coursename}
                 </option>
               ))}
             </select>

@@ -5,6 +5,8 @@ import { Link, useNavigate } from 'react-router-dom'
 import { FaTrash } from 'react-icons/fa'
 import { FaMessage } from 'react-icons/fa6'
 import { CButton, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle } from '@coreui/react'
+import jsPDF from 'jspdf'
+import html2canvas from 'html2canvas'
 
 const Viewstudent = () => {
   const [user, setuser] = useState([])
@@ -17,23 +19,51 @@ const Viewstudent = () => {
   const [totalitem, setTotalitem] = useState()
   const usersPerPage = 10
   let pageRange = []
+  const [QueryBatch, setQueryBatch] = useState('')
+  const [QueryCourse, setQueryCourse] = useState('')
+  const [courses, setCourses] = useState([])
+  const [batches, setBatches] = useState([])
 
   useEffect(() => {
     enroll(1)
     pagination()
+    getCourse()
+    getBatch()
   }, [])
 
   const pageLinkClick = (page) => {
     enroll(page)
   }
+  async function getCourse() {
+    try {
+      let result = await axios.get('http://localhost:5000/courses')
+      console.log(result)
+      setCourses(result.data)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+  async function getBatch() {
+    try {
+      let result = await axios.get('http://localhost:5000/batches')
+      console.log(result)
+      setBatches(result.data)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+  // console.log(user.course.coursename)
   async function enroll(page) {
     try {
       console.log(page)
       setCurrentPage(page)
       console.log(currentPage)
-      let result = await axios.get(`http://localhost:5000/students?page=${page}`)
+      let result = await axios.get(
+        `http://localhost:5000/students?page=${page}&batch=${QueryBatch}&course=${QueryCourse}`,
+      )
       // console.log(result)
       setuser(result.data)
+      // console.log(users)
     } catch (err) {
       console.log(err)
     }
@@ -71,6 +101,45 @@ const Viewstudent = () => {
   const adduser = () => {
     navigate('/student/add')
   }
+  const handleBatchChange = (event) => {
+    event.preventDefault()
+    setQueryBatch(event.target.value)
+    console.log(event.target.value)
+    if (!event.target.value) {
+      console.log('if')
+      setQueryBatch(null)
+      enroll(1)
+    }
+  }
+  const handleCourseChange = (event) => {
+    setQueryCourse(event.target.value)
+    console.log(event.target.value)
+    if (!event.target.value) {
+      console.log('if')
+      setQueryCourse(null)
+      enroll(1)
+    }
+  }
+  const filter = (e) => {
+    e.preventDefault()
+    enroll(1)
+  }
+  const pdfdownload = () => {
+    try {
+      const input = document.getElementById('pdf-content')
+
+      html2canvas(input).then((canvas) => {
+        const imgData = canvas.toDataURL('image/png')
+        const pdf = new jsPDF('p', 'mm', 'a4', true)
+        const imgWidth = 210
+        const imgHeight = (canvas.height * imgWidth) / canvas.width
+        pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight)
+        pdf.save('page_as_pdf.pdf')
+      })
+    } catch (err) {
+      console.log(err)
+    }
+  }
 
   return (
     <>
@@ -89,16 +158,54 @@ const Viewstudent = () => {
         </CModalFooter>
       </CModal>
       {msg && <p className="alert alert-success">{msg}</p>}
-      <div className=" bg-white   rounded-4 ">
+      <div className=" card rounded-4 ">
         <div className="d-flex  justify-content-between border-bottom">
-          <h2 className=" h2 text-dark  p-2 px-3">
+          <h2 className=" h2   p-2 px-3">
             Students <span className="h5 text-success">({totalitem})</span>
           </h2>
+          <div className="pt-3 ">
+            <form className="col-12  d-flex  justify-content-between ">
+              <select
+                name="Coursename"
+                id=""
+                className="form-select "
+                value={QueryCourse}
+                onChange={handleCourseChange}
+              >
+                <option value="">Course Name</option>
+                {courses.map((course) => (
+                  <option key={course.coursename} value={course._id}>
+                    {course.coursename}
+                  </option>
+                ))}
+              </select>
+              <select
+                name="Batchname"
+                id=""
+                className="form-select "
+                value={QueryBatch}
+                onChange={handleBatchChange}
+              >
+                <option value="">Batch Name</option>
+                {batches.map((batch) => (
+                  <option key={batch.batchname} value={batch._id}>
+                    {batch.batchname}
+                  </option>
+                ))}
+              </select>
+              <button className="btn btn-primary ms-2" onClick={filter}>
+                search
+              </button>
+            </form>
+          </div>
+          <Link className="text-info d-inline ms-3 h3 " onClick={pdfdownload}>
+            <FaTrash />
+          </Link>
           <button className="btn m-3  btn-info" onClick={adduser}>
             Add student
           </button>
         </div>
-        <div className=" bg-light   ">
+        <div className="  ">
           <table className="table ">
             <thead>
               <tr>
@@ -113,15 +220,15 @@ const Viewstudent = () => {
               </tr>
             </thead>
             <tbody>
-              {user.map((user) => (
-                <tr key={user._id}>
-                  <td>{user.student_name}</td>
-                  <td>{user.student_email}</td>
-                  <td>{user.student_mobile}</td>
-                  <td>{user.batches.batchname}</td>
-                  <td>{user.batches.trainer.course.coursename}</td>
-                  <td>{user.batches.trainer.tname}</td>
-                  <td>{user.date}</td>
+              {user.map((users) => (
+                <tr key={users._id}>
+                  <td>{users.student_name}</td>
+                  <td>{users.student_email}</td>
+                  <td>{users.student_mobile}</td>
+                  <td>{users.batches.batchname}</td>
+                  <td>{users.course.coursename}</td>
+                  <td>{users.batches.trainer.tname}</td>
+                  <td>{users.date}</td>
 
                   <td>
                     <Link to={`/student/update/${user._id}`} className="text-warning d-inline h3 ">
