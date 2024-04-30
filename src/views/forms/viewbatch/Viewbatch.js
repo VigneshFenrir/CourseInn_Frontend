@@ -18,6 +18,7 @@ const Viewbatch = () => {
   const [currentPage, setCurrentPage] = useState(1)
   const usersPerPage = 10
   let pageRange = []
+  const [error, setError] = useState()
 
   useEffect(() => {
     enroll(1)
@@ -73,13 +74,17 @@ const Viewbatch = () => {
     setVisible(!visible)
   }
   const deleteitem = async () => {
-    let results = await axios.delete('http://localhost:5000/batches/' + currentbatch._id)
-    console.log(results)
-    setMsg(results.data)
-    console.log('result:', results.data)
-
-    setVisible(false)
-    enroll()
+    try {
+      let results = await axios.delete('http://localhost:5000/batches/' + currentbatch._id)
+      console.log(results)
+      setMsg(results.data)
+      console.log('result:', results.data)
+      setVisible(false)
+      enroll()
+    } catch (err) {
+      setError(err.response.data)
+      setVisible(false)
+    }
   }
 
   const addtrainer = () => {
@@ -105,6 +110,7 @@ const Viewbatch = () => {
         </CModalFooter>
       </CModal>
       {msg && <p className="alert alert-success">{msg}</p>}
+      {error && <p className="alert alert-danger">{error}</p>}
       <div className=" card rounded-4 ">
         <div className="d-flex  justify-content-between border-bottom">
           <h2 className=" h2  p-2 px-3">

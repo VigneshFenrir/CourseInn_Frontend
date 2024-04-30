@@ -33,6 +33,8 @@ const Login = () => {
       try {
         let result = await axios.post('http://localhost:5000/academy/loginuser', login)
         console.log('result:', result)
+        const token = result.headers
+        console.log(token)
         navigate('/dashboard')
 
         setMsg(result.data)

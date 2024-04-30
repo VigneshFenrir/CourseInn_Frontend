@@ -17,6 +17,7 @@ const Viewcourse = () => {
   const [totalitem, setTotalitem] = useState()
   const usersPerPage = 8
   let pageRange = []
+  const [error, setError] = useState()
 
   useEffect(() => {
     enroll(1)
@@ -60,12 +61,17 @@ const Viewcourse = () => {
     setVisible(!visible)
   }
   const deleteitem = async () => {
-    let results = await axios.delete('http://localhost:5000/courses/' + currentuser._id)
-    console.log(results)
-    console.log('result:', results.data)
-    setMsg(results.data)
-    setVisible(false)
-    enroll()
+    try {
+      let results = await axios.delete('http://localhost:5000/courses/' + currentuser._id)
+      console.log(results)
+      console.log('result:', results.data)
+      setMsg(results.data)
+      setVisible(false)
+      enroll()
+    } catch (err) {
+      setError(err.response.data)
+      setVisible(false)
+    }
   }
 
   const adduser = () => {
@@ -89,6 +95,8 @@ const Viewcourse = () => {
         </CModalFooter>
       </CModal>
       {msg && <p className="alert alert-success">{msg}</p>}
+      {error && <p className="alert alert-danger">{error}</p>}
+
       <div className="  card  rounded-4 ">
         <div className="d-flex  justify-content-between border-bottom">
           <h2 className=" h2 p-2 px-3">
