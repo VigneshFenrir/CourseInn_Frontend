@@ -16,7 +16,14 @@ const Addcourse = () => {
     e.preventDefault()
     async function enroll() {
       try {
-        let result = await axios.post('http://localhost:5000/courses', user)
+        const token = localStorage.getItem('token')
+
+        // Set up the headers including the token
+        const headers = {
+          'Content-Type': 'application/json', // or any other content type you need
+          'x-auth-token': token, // Add the token to the headers
+        }
+        let result = await axios.post('http://localhost:5000/courses', user, { headers })
         console.log('result:', result)
         setMsg(result.data)
         setUser({

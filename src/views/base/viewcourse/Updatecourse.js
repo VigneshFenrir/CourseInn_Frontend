@@ -45,7 +45,14 @@ const Updatecourse = () => {
   }
   async function update() {
     try {
-      let asser = await axios.put('http://localhost:5000/courses/' + id, user)
+      const token = localStorage.getItem('token')
+
+      // Set up the headers including the token
+      const headers = {
+        'Content-Type': 'application/json', // or any other content type you need
+        'x-auth-token': token, // Add the token to the headers
+      }
+      let asser = await axios.put('http://localhost:5000/courses/' + id, user, { headers })
       console.log(asser)
       setMsg(asser.data)
       setError()

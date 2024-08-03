@@ -26,8 +26,17 @@ const Adduser = () => {
   const savepost = (e) => {
     e.preventDefault()
     async function enroll() {
+      const token = localStorage.getItem('token')
+
+      // Set up the headers including the token
+      const headers = {
+        'Content-Type': 'application/json', // or any other content type you need
+        'x-auth-token': token, // Add the token to the headers
+      }
       try {
-        let result = await axios.post('http://localhost:5000/academy/signinusers', users)
+        let result = await axios.post('http://localhost:5000/academy/signinusers', users, {
+          headers,
+        })
         console.log('result:', result)
         setMsg(result.data)
         setUsers({

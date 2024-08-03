@@ -32,8 +32,15 @@ const Addtrainer = () => {
     e.preventDefault()
     async function enroll() {
       try {
+        const token = localStorage.getItem('token')
+
+        // Set up the headers including the token
+        const headers = {
+          'Content-Type': 'application/json', // or any other content type you need
+          'x-auth-token': token, // Add the token to the headers
+        }
         console.log(user)
-        let result = await axios.post('http://localhost:5000/trainers', user)
+        let result = await axios.post('http://localhost:5000/trainers', user, { headers })
         console.log('result:', result)
         setMsg(result.data)
         setUser({

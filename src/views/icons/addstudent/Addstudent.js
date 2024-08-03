@@ -54,7 +54,14 @@ const Addstudent = () => {
     e.preventDefault()
     async function post() {
       try {
-        let result = await axios.post('http://localhost:5000/students', student)
+        const token = localStorage.getItem('token')
+
+        // Set up the headers including the token
+        const headers = {
+          'Content-Type': 'application/json', // or any other content type you need
+          'x-auth-token': token, // Add the token to the headers
+        }
+        let result = await axios.post('http://localhost:5000/students', student, { headers })
         console.log('result:', result)
         setMsg(result.data)
         goToTop()

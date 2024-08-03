@@ -25,9 +25,13 @@ import { useNavigate } from 'react-router-dom'
 import avatar8 from 'src/assets/images/avatar.jpg'
 
 const AppHeaderDropdown = () => {
-  let navigate = useNavigate
+  const navigate = useNavigate()
   const handleLogout = () => {
-    navigate('/login')
+    console.log('hii')
+    localStorage.removeItem('token')
+    const token = localStorage.getItem('token')
+    console.log(token)
+    navigate('/')
   }
   return (
     <CDropdown variant="nav-item">

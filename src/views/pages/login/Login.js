@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import axios from 'axios'
-
 import {
   CButton,
   CCard,
@@ -13,6 +12,7 @@ import {
   CInputGroup,
   CInputGroupText,
   CRow,
+  CSpinner,
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import { cilLockLocked, cilUser } from '@coreui/icons'
@@ -23,44 +23,45 @@ const Login = () => {
     email: '',
     password: '',
   })
-  const [error, setError] = useState()
-  const [msg, setMsg] = useState()
+  const [error, setError] = useState('')
+  const [msg, setMsg] = useState('')
+  const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
 
-  const savepost = (e) => {
+  const savepost = async (e) => {
     e.preventDefault()
-    async function post() {
-      try {
-        let result = await axios.post('http://localhost:5000/academy/loginuser', login)
-        console.log('result:', result)
-        const token = result.headers
-        console.log(token)
+    setLoading(true) // Start loading state
+    try {
+      const result = await axios.post('http://localhost:5000/academy/loginuser', login)
+
+      const tokenFromHeaders = result.headers['x-auth-token'] || result.headers['X-Auth-Token']
+
+      if (tokenFromHeaders) {
+        localStorage.setItem('token', tokenFromHeaders)
+        setMsg(result.data.message || 'Login successful')
+        setError('')
         navigate('/dashboard')
-
-        setMsg(result.data)
-        setError()
-      } catch (err) {
-        console.log(err)
-        console.log('error:', err.response.data)
-        setError(err.response.data)
-        console.log(err.response.data.message)
-        setLogin({
-          email: '',
-          password: '',
-        })
+      } else {
+        setError('Token not found in response headers')
       }
+    } catch (err) {
+      console.error('Error:', err)
+      const errorMsg = err.response?.data?.message || 'An error occurred'
+      setError(errorMsg)
+      setMsg('')
+    } finally {
+      setLoading(false) // End loading state
     }
-
-    post()
   }
+
   const forgetpassword = () => {
     navigate('forgetpassword')
   }
 
   return (
-    <div className=" vh-100 bg-body-tertiary text-center d-flex align-items-center backgroundimg">
-      <CContainer className=" w-50 ">
-        <CRow className="justify-content-center  ">
+    <div className="vh-100 bg-body-tertiary text-center d-flex align-items-center backgroundimg">
+      <CContainer className="w-50">
+        <CRow className="justify-content-center">
           <CCol md={8}>
             <CCardGroup className="gradient">
               <CCard className="p-4">
@@ -76,9 +77,7 @@ const Login = () => {
                         placeholder="Mail"
                         autoComplete="email"
                         value={login.email}
-                        onChange={(e) => {
-                          setLogin({ ...login, email: e.target.value })
-                        }}
+                        onChange={(e) => setLogin({ ...login, email: e.target.value })}
                       />
                     </CInputGroup>
                     <CInputGroup className="mb-4">
@@ -90,18 +89,22 @@ const Login = () => {
                         placeholder="Password"
                         autoComplete="current-password"
                         value={login.password}
-                        onChange={(e) => {
-                          setLogin({ ...login, password: e.target.value })
-                        }}
+                        onChange={(e) => setLogin({ ...login, password: e.target.value })}
                       />
                     </CInputGroup>
                     <CRow>
                       <div>
-                        {msg && <p className="text-success">{msg}</p>}
-                        {!msg && <p className="text-danger">{error}</p>}
+                        {loading && <CSpinner color="primary" />}
+                        {msg && !loading && <p className="text-success">{msg}</p>}
+                        {error && !loading && <p className="text-danger">{error}</p>}
                       </div>
                       <CCol xs={6}>
-                        <CButton color="primary" className="px-4" onClick={savepost}>
+                        <CButton
+                          color="primary"
+                          className="px-4"
+                          onClick={savepost}
+                          disabled={loading}
+                        >
                           Login
                         </CButton>
                       </CCol>
