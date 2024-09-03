@@ -5,19 +5,19 @@ import path from 'path'
 export default defineConfig({
   plugins: [react()],
   build: {
-    outDir: 'build', // Set the output directory
-
     rollupOptions: {
-      input: 'index.html', // Ensure this matches the location of your HTML file
+      input: {
+        main: 'index.html', // Ensure this matches your HTML file's path
+      },
     },
-  },
-  optimizeDeps: {
-    include: ['react', 'react-dom'],
   },
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, 'src'), // Adjust if you use aliases
+      '/src': path.resolve(__dirname, 'src'), // Ensure this alias matches your file structure
     },
     extensions: ['.js', '.jsx', '.ts', '.tsx'],
+  },
+  server: {
+    port: 3000,
   },
 })
