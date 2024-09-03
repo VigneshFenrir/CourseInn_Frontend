@@ -27,7 +27,7 @@ export default defineConfig(({ mode }) => {
     esbuild: {
       loader: 'jsx',
       include: /src\/.*\.jsx?$/,
-      exclude: [],
+      // exclude: [],
     },
     optimizeDeps: {
       force: true,
