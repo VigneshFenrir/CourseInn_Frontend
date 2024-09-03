@@ -7,13 +7,13 @@ export default defineConfig({
   build: {
     rollupOptions: {
       input: {
-        main: 'index.html', // Ensure this matches your HTML file's path
+        main: path.resolve(__dirname, 'public/index.html'), // Ensure this points to your HTML file
       },
     },
   },
   resolve: {
     alias: {
-      '/src': path.resolve(__dirname, 'src'), // Ensure this alias matches your file structure
+      '/src': path.resolve(__dirname, 'src'), // Ensure this alias matches
     },
     extensions: ['.js', '.jsx', '.ts', '.tsx'],
   },
