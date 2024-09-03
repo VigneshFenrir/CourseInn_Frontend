@@ -205,9 +205,7 @@ const Viewstudent = () => {
               </button>
             </form>
           </div>
-          <Link className="text-info d-inline ms-3 h3 " onClick={pdfdownload}>
-            <FaTrash />
-          </Link>
+
           <button className="btn m-3  btn-info" onClick={adduser}>
             Add student
           </button>
