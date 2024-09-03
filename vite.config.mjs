@@ -5,6 +5,8 @@ import path from 'path'
 export default defineConfig({
   plugins: [react()],
   build: {
+    outDir: 'build', // Set the output directory
+
     rollupOptions: {
       input: 'index.html', // Ensure this matches the location of your HTML file
     },
