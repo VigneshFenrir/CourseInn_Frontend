@@ -32,6 +32,8 @@ const Login = () => {
     e.preventDefault()
     setLoading(true) // Start loading state
     try {
+      navigate('/dashboard')
+
       const result = await axios.post('http://localhost:5000/academy/loginuser', login)
 
       const tokenFromHeaders = result.headers['x-auth-token'] || result.headers['X-Auth-Token']

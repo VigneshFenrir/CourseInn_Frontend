@@ -2,7 +2,7 @@ import React from 'react'
 
 import { CCard } from '@coreui/react'
 
-import WidgetsDropdown from '../widgets/WidgetsDropdown'
+import WidgetsDropdown from '../widgets/WidgetsDropdown.jsx'
 
 const Dashboard = () => {
   return (

@@ -12,7 +12,7 @@ import {
 
 import { AppSidebarNav } from './AppSidebarNav'
 
-import avatar8 from '/src/assets/images/logo.png'
+import avatar8 from '/logo.png'
 
 // sidebar nav config
 import navigation from '../_nav'
