@@ -4,18 +4,12 @@ import path from 'path'
 
 export default defineConfig({
   plugins: [react()],
-
   build: {
-    rollupOptions: {
-      input: {
-        main: path.resolve(__dirname, 'public/index.html'), // Ensure this points to your HTML file
-      },
-    },
-    outDir: 'dist', // Vercel serves files from here
+    outDir: 'dist', // Vercel will serve files from this directory
   },
   resolve: {
     alias: {
-      '/src': path.resolve(__dirname, 'src'), // Ensure this alias matches
+      '/src': path.resolve(__dirname, 'src'), // Ensure this alias is correct
     },
     extensions: ['.js', '.jsx', '.ts', '.tsx'],
   },
