@@ -80,7 +80,7 @@ const WidgetsDropdown = (props) => {
     navigate('/student/view')
   }
   const addstudent = () => {
-    navigate('/]student/add')
+    navigate('/student/add')
   }
 
   return (
